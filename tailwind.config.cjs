@@ -8,6 +8,9 @@ module.exports = {
 			darkText: '#222222',
 			lightText: '#787c7e',
 		},
+		fontFamily: {
+			primary: ['Signika', 'sans-serif'],
+		},
 	},
 	plugins: [],
 };
