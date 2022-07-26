@@ -1,5 +1,9 @@
+// COMPONENTS
+import Posts from './components/Posts';
+// FIREBASE IMPORTS
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, doc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyAeN1qn2__7qUNjVky4EqnQyN-E-_VmmsA',
@@ -10,19 +14,26 @@ const firebaseConfig = {
 	appId: '1:919059894715:web:4389bfa653c002eed9349e',
 	measurementId: 'G-NG8XJQPQWV',
 };
+
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
-
 const colRef = collection(db, 'posts');
 
-getDocs(colRef).then(snapshot => {
-	const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-	console.log(data);
-});
-
 function App() {
-	return <h1>SeeIt</h1>;
+	const [posts, setPosts] = useState([]);
+
+	useEffect(() => {
+		getDocs(colRef).then(snapshot => {
+			const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+			setPosts(data);
+		});
+	}, []);
+
+	return (
+		<main className='w-full min-h-screen bg-secondary px-5'>
+			<Posts posts={posts} />
+		</main>
+	);
 }
 
 export default App;
