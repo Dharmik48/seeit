@@ -7,6 +7,8 @@ module.exports = {
 			primary: '#f8f9fa',
 			darkText: '#222222',
 			lightText: '#787c7e',
+			lightRed: '#FCA5A5',
+			brightRed: '#EF4444',
 		},
 		fontFamily: {
 			primary: ['Signika', 'sans-serif'],
