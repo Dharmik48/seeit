@@ -30,8 +30,11 @@ function App() {
 	}, []);
 
 	return (
-		<main className='w-full min-h-screen bg-secondary px-5'>
-			<Posts posts={posts} />
+		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary'>
+			<section className='max-w-xl mx-auto'>
+				<h1 className='text-2xl'>👀 SeeIt</h1>
+				<Posts posts={posts} />
+			</section>
 		</main>
 	);
 }
