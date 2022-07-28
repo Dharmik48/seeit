@@ -4,6 +4,7 @@ import Posts from './components/Posts';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, doc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import NewPost from './components/NewPost';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyAeN1qn2__7qUNjVky4EqnQyN-E-_VmmsA',
@@ -33,6 +34,7 @@ function App() {
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary'>
 			<section className='max-w-xl mx-auto'>
 				<h1 className='text-2xl'>👀 SeeIt</h1>
+				<NewPost />
 				<Posts posts={posts} />
 			</section>
 		</main>
