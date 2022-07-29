@@ -13,13 +13,10 @@
 		"@fortawesome/free-regular-svg-icons": "^6.1.2",
 		"@fortawesome/free-solid-svg-icons": "^6.1.2",
 		"@fortawesome/react-fontawesome": "^0.2.0",
-		"filepond": "^4.30.4",
-		"filepond-plugin-image-exif-orientation": "^1.0.11",
-		"filepond-plugin-image-preview": "^4.6.11",
 		"firebase": "^9.9.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-filepond": "^7.1.2"
+		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.15",
