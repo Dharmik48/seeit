@@ -25,20 +25,20 @@ function App() {
 
 	return (
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary'>
-			<header className='max-w-3xl flex items-center justify-between mx-auto mb-5 border-b border-darkText pb-5'>
+			<header className='max-w-3xl flex items-center justify-between mx-auto mb-5 border-b border-darkText pb-3 lg:pb-5'>
 				<h1 className='text-2xl'>👀 SeeIt</h1>
 				{!user ? (
 					<button onClick={() => signInWithGoogle()}>Sign In</button>
 				) : (
 					<img
 						src={user.photoURL}
-						className='max-h-12'
+						className='max-h-8 lg:max-h-10'
 						alt={user.displayName}
 					/>
 				)}
 			</header>
 			<section className='max-w-xl mx-auto grid gap-5'>
-				<NewPost />
+				{user && <NewPost />}
 				<Posts posts={posts} />
 			</section>
 		</main>
