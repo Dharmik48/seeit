@@ -10,7 +10,7 @@ import {
 	faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
-import { addDoc } from 'firebase/firestore';
+import { addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function NewPost() {
 	const [titleText, setTitleText] = useState('');
@@ -31,6 +31,7 @@ export default function NewPost() {
 			addDoc(colRef, {
 				title: titleText,
 				img: url,
+				createdAt: serverTimestamp(),
 			}).then(() => {
 				setTitleText('');
 				setImgFile(null);
