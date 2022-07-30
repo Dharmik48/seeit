@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 // COMPONENTS
 import Posts from './components/Posts';
 import NewPost from './components/NewPost';
-import { onSnapshot } from 'firebase/firestore';
+import { onSnapshot, query, orderBy } from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { colRef, auth, provider } from './firebase/firebase';
 
@@ -11,7 +11,7 @@ function App() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		onSnapshot(colRef, snapshot => {
+		onSnapshot(query(colRef, orderBy('createdAt', 'desc')), snapshot => {
 			const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 			setPosts(data);
 		});
