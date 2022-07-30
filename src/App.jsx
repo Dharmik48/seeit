@@ -28,7 +28,12 @@ function App() {
 			<header className='max-w-3xl flex items-center justify-between mx-auto mb-5 border-b border-darkText pb-3 lg:pb-5'>
 				<h1 className='text-2xl'>👀 SeeIt</h1>
 				{!user ? (
-					<button onClick={() => signInWithGoogle()}>Sign In</button>
+					<button
+						onClick={() => signInWithGoogle()}
+						className='border border-darkText rounded-full py-1.5 px-4 hover:bg-darkText hover:text-primary transition-colors focus:bg-darkText focus:text-primary focus:outline-none'
+					>
+						Sign In
+					</button>
 				) : (
 					<img
 						src={user.photoURL}
