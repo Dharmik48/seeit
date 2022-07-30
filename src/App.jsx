@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 // COMPONENTS
 import Posts from './components/Posts';
 import NewPost from './components/NewPost';
-import { getDocs } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { colRef, auth, provider } from './firebase/firebase';
 
@@ -11,7 +11,7 @@ function App() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		getDocs(colRef).then(snapshot => {
+		onSnapshot(colRef, snapshot => {
 			const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 			setPosts(data);
 		});
@@ -25,10 +25,19 @@ function App() {
 
 	return (
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary'>
-			<header className='max-w-3xl flex items-center justify-between mx-auto mb-5 border-b border-darkText pb-3 lg:pb-5'>
+			<header
+				className={`max-w-3xl flex items-center justify-between mx-auto border-b border-darkText pb-3 lg:pb-5 ${
+					user && 'mb-5 lg:mb-10'
+				}`}
+			>
 				<h1 className='text-2xl'>👀 SeeIt</h1>
 				{!user ? (
-					<button onClick={() => signInWithGoogle()}>Sign In</button>
+					<button
+						onClick={() => signInWithGoogle()}
+						className='border border-darkText rounded-full py-1.5 px-4 hover:bg-darkText hover:text-primary transition-colors focus:bg-darkText focus:text-primary focus:outline-none'
+					>
+						Sign In
+					</button>
 				) : (
 					<img
 						src={user.photoURL}
@@ -37,7 +46,7 @@ function App() {
 					/>
 				)}
 			</header>
-			<section className='max-w-xl mx-auto grid gap-5'>
+			<section className='max-w-xl mx-auto grid'>
 				{user && <NewPost />}
 				<Posts posts={posts} />
 			</section>
