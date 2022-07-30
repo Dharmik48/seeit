@@ -33,20 +33,13 @@ export default function NewPost() {
 	return (
 		<div className='grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg'>
 			<form className='flex items-center border-2 border-secondary rounded-lg'>
-				<FontAwesomeIcon
-					icon={faAdd}
-					size='lg'
-					className='border-r-2 border-secondary p-2 lg:p-3'
-				/>
+				<FontAwesomeIcon icon={faAdd} size='lg' className=' p-2 lg:p-3' />
 				<input
 					type='text'
 					placeholder='New Post'
-					className='w-full bg-primary h-full p-2 lg:p-4'
+					className='w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none'
 				/>
-				<label
-					htmlFor='imageUploadBtn'
-					className='border-l-2 p-3 lg:p-3.5 border-secondary cursor-pointer'
-				>
+				<label htmlFor='imageUploadBtn' className='p-3 lg:p-3.5 cursor-pointer'>
 					<FontAwesomeIcon icon={faImage} className='text-lg lg:text-xl' />
 				</label>
 				<input
