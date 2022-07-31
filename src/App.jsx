@@ -48,7 +48,7 @@ function App() {
 			</header>
 			<section className='max-w-xl mx-auto grid'>
 				{user && <NewPost />}
-				<Posts posts={posts} />
+				<Posts posts={posts} currentUser={user} />
 			</section>
 		</main>
 	);
