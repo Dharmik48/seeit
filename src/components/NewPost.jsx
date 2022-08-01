@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   faAdd,
   faImage,
-  faPlus,
   faSpinner,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -53,11 +52,11 @@ export default function NewPost() {
   return (
     <div
       className="grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg 
-    dark:bg-darkText dark:border-darkText dark:text-primary"
+    dark:bg-darkText dark:border-primary dark:text-primary "
     >
       <form
         className="flex items-center border-2 border-secondary rounded-lg
-        p-2 dark:border-darkText dark:bg-darkText dark:text-darkText"
+        p-2 dark:border-[#ccc] dark:bg-darkText dark:text-darkText"
         onSubmit={(e) => post(e)}
       >
         <FontAwesomeIcon
@@ -70,7 +69,7 @@ export default function NewPost() {
           placeholder="New Post"
           value={titleText}
           className="w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none 
-          dark:bg-darkText dark:border-darkText dark:text-primary"
+          dark:bg-darkText dark:border-[#ccc] dark:text-primary"
           onChange={(e) => setTitleText(e.target.value)}
         />
         <label htmlFor="imageUploadBtn" className="p-3 lg:p-3.5 cursor-pointer">
