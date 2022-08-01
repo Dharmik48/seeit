@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import { faImage } from "@fortawesome/free-regular-svg-icons";
 import {
   faAdd,
+  faImage,
+  faPlus,
   faSpinner,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -50,21 +51,35 @@ export default function NewPost() {
   }
 
   return (
-    <div className="grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg">
+    <div
+      className="grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg 
+    dark:bg-darkText dark:border-darkText dark:text-primary"
+    >
       <form
-        className="flex items-center border-2 border-secondary rounded-lg"
+        className="flex items-center border-2 border-secondary rounded-lg
+        p-2 dark:border-darkText dark:bg-darkText dark:text-darkText"
         onSubmit={(e) => post(e)}
       >
-        <FontAwesomeIcon icon={faAdd} size="lg" className=" p-2 lg:p-3" />
+        <FontAwesomeIcon
+          icon={faAdd}
+          size="lg"
+          className=" p-2 lg:p-3 dark:text-primary"
+        />
         <input
           type="text"
           placeholder="New Post"
           value={titleText}
-          className="w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none"
+          className="w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none 
+          dark:bg-darkText dark:border-darkText dark:text-primary"
           onChange={(e) => setTitleText(e.target.value)}
         />
         <label htmlFor="imageUploadBtn" className="p-3 lg:p-3.5 cursor-pointer">
-          <FontAwesomeIcon icon={faImage} className="text-lg lg:text-xl" />
+          {/* show image svg */}
+          <FontAwesomeIcon
+            icon={faImage}
+            size="lg"
+            className="p-2 lg:p-3 dark:text-primary"
+          />
         </label>
         <input
           type="file"

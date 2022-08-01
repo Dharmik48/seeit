@@ -42,7 +42,7 @@ function App() {
             onClick={() => setTheme(colorTheme)}
           >
             <input type="checkbox" className="" />
-            <span className="bg-secondary rounded-full h-4 w-4 text-white" />
+          
           </label>
         </div>
         {!user ? (
