@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 // COMPONENTS
+
 import { signInWithPopup } from "firebase/auth";
 import { onSnapshot } from "firebase/firestore";
 import NewPost from "./components/NewPost";
 import Posts from "./components/Posts";
 import { auth, colRef, provider } from "./firebase/firebase";
 import useDarkMode from "./hooks/useDarkMode";
+
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -17,6 +19,7 @@ function App() {
       setPosts(data);
     });
   }, []);
+
 
   const signInWithGoogle = async () => {
     const data = await signInWithPopup(auth, provider);

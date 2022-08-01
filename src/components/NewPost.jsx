@@ -12,6 +12,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { colRef, storage } from "../firebase/firebase";
 
+
 export default function NewPost() {
   const [titleText, setTitleText] = useState("");
   const [imgFile, setImgFile] = useState(null);
@@ -39,6 +40,7 @@ export default function NewPost() {
       });
     });
   }
+
 
   function showImgPreview(e) {
     if (!e.target.files[0]) return;
