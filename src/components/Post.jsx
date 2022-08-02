@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as heartOutline } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 
-export default function Post({ data, currentUser: user }) {
+export default function Post({ data, currentUser: user, setFlash }) {
 	const [isLiked, setIsLiked] = useState(data.likedBy.includes(user?.uid));
 
 	useEffect(() => {
@@ -15,6 +15,10 @@ export default function Post({ data, currentUser: user }) {
 	}, [user]);
 
 	function likePost() {
+		if (!user) {
+			setFlash({ show: true, msg: 'Please Sign In first!' });
+			return;
+		}
 		const docRef = doc(db, 'posts', data.id);
 
 		let newIsLikedBy;

@@ -1,9 +1,14 @@
 import Post from './Post';
 
-export default function Posts({ posts, currentUser }) {
+export default function Posts({ posts, currentUser, setFlash }) {
 	const renderPosts = () =>
 		posts.map(post => (
-			<Post data={post} currentUser={currentUser} key={post.id} />
+			<Post
+				data={post}
+				currentUser={currentUser}
+				setFlash={setFlash}
+				key={post.id}
+			/>
 		));
 
 	return (
