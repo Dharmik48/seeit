@@ -7,7 +7,7 @@ import {
 	faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { addDoc } from 'firebase/firestore';
+import { addDoc, serverTimestamp } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { colRef, storage } from '../firebase/firebase';
@@ -32,6 +32,7 @@ export default function NewPost() {
 				title: titleText,
 				img: url,
 				createdAt: serverTimestamp(),
+				likedBy: [],
 			}).then(() => {
 				setTitleText('');
 				setImgFile(null);
