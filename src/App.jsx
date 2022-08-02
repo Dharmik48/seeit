@@ -6,10 +6,15 @@ import NewPost from './components/NewPost';
 import Posts from './components/Posts';
 import { auth, colRef, provider } from './firebase/firebase';
 import useDarkMode from './hooks/useDarkMode';
+import FlashMsg from './components/FlashMsg';
 
 function App() {
 	const [posts, setPosts] = useState([]);
 	const [user, setUser] = useState(null);
+	const [flash, setFlash] = useState({
+		show: false,
+		msg: '',
+	});
 	const [setTheme, colorTheme] = useDarkMode();
 
 	useEffect(() => {
@@ -18,6 +23,17 @@ function App() {
 			setPosts(data);
 		});
 	}, []);
+
+	useEffect(() => {
+		let timeout;
+		if (flash.show) {
+			timeout = setTimeout(() => setFlash({ show: false, msg: '' }), 5000);
+		}
+
+		return () => {
+			clearTimeout(timeout);
+		};
+	}, [flash]);
 
 	const signInWithGoogle = async () => {
 		const data = await signInWithPopup(auth, provider);
@@ -32,10 +48,6 @@ function App() {
 					user && 'mb-5 lg:mb-10'
 				}`}
 			>
-				{/* toggle switches to dark and light mode */}
-
-				{/* sign in with google */}
-
 				<h1 className='text-2xl dark:text-primary'>👀 SeeIt</h1>
 				<div className='flex items-center'>
 					<label
@@ -61,9 +73,10 @@ function App() {
 					/>
 				)}
 			</header>
-			<section className='max-w-xl mx-auto grid'>
+			<section className='max-w-xl mx-auto grid relative'>
+				{flash.show && <FlashMsg msg={flash.msg} setFlash={setFlash} />}
 				{user && <NewPost />}
-				<Posts posts={posts} currentUser={user} />
+				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
 			</section>
 		</main>
 	);
