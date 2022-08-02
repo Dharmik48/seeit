@@ -10,8 +10,6 @@ import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 export default function Post({ data, currentUser: user }) {
 	const [isLiked, setIsLiked] = useState(data.likedBy.includes(user?.uid));
 
-	// console.log(data.likedBy.includes(user?.uid));
-
 	useEffect(() => {
 		setIsLiked(data.likedBy.includes(user?.uid));
 	}, [user]);
@@ -41,7 +39,7 @@ export default function Post({ data, currentUser: user }) {
 				<h1 className='mx-auto mb-5 dark:text-primary'>{data.title}</h1>
 				<img src={data.img} className='mx-auto' alt={data.title} />
 			</div>
-			<div className='bg-primary px-4 py-2 rounded-lg dark:bg-darkText'>
+			<div className='bg-primary px-4 py-2 rounded-lg flex items-center gap-1 dark:bg-darkText'>
 				<FontAwesomeIcon
 					icon={isLiked ? heartFilled : heartOutline}
 					className={`cursor-pointer transition-colors ${
@@ -50,7 +48,7 @@ export default function Post({ data, currentUser: user }) {
 					size='lg'
 					onClick={likePost}
 				/>
-				{data.likedBy.length}
+				<span className='font-primary'>{data.likedBy.length}</span>
 			</div>
 		</div>
 	);
