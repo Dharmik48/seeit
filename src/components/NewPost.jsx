@@ -32,6 +32,7 @@ export default function NewPost() {
       addDoc(colRef, {
         title: titleText,
         img: url,
+        createdAt: serverTimestamp(),
       }).then(() => {
         setTitleText("");
         setImgFile(null);
