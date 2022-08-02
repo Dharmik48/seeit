@@ -7,7 +7,7 @@ export default function Posts({ posts, currentUser }) {
 		));
 
 	return (
-		<section className='grid gap-5 font-light mt-5 lg:mt-10'>
+		<section className='grid gap-5 font-light mt-5 lg:mt-10 dark:bg-darkText'>
 			{renderPosts()}
 		</section>
 	);
