@@ -10,6 +10,7 @@ module.exports = {
 			lightText: '#787c7e',
 			lightRed: '#FCA5A5',
 			brightRed: '#EF4444',
+			brightGreen: '#22c35e',
 		},
 		fontFamily: {
 			primary: ['Signika', 'sans-serif'],
