@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 // COMPONENTS
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signOut } from 'firebase/auth';
 import { onSnapshot, orderBy, query } from 'firebase/firestore';
 import NewPost from './components/NewPost';
 import Posts from './components/Posts';
@@ -14,6 +14,7 @@ function App() {
 	const [flash, setFlash] = useState({
 		show: false,
 		msg: '',
+		success: false,
 	});
 	const [setTheme, colorTheme] = useDarkMode();
 
@@ -37,8 +38,27 @@ function App() {
 
 	const signInWithGoogle = async () => {
 		const data = await signInWithPopup(auth, provider);
+		data &&
+			setFlash(prevFlash => ({
+				...prevFlash,
+				show: true,
+				msg: 'Signed In Successfully',
+				success: 'true',
+			}));
 		const { uid, photoURL, email, displayName } = data.user;
 		setUser({ uid, photoURL, email, displayName });
+	};
+
+	const signUserOut = () => {
+		signOut(auth).then(() => {
+			setUser(null);
+			setFlash(prevFlash => ({
+				...prevFlash,
+				show: true,
+				msg: 'Signed Out Successfully',
+				success: true,
+			}));
+		});
 	};
 
 	return (
@@ -66,15 +86,23 @@ function App() {
 						Sign In
 					</button>
 				) : (
-					<img
-						src={user.photoURL}
-						className='max-h-8 lg:max-h-10 rounded-full'
-						alt={user.displayName}
-					/>
+					<div className='flex items-center gap-3.5 lg:gap-5'>
+						<span
+							className='cursor-pointer dark:text-primary'
+							onClick={signUserOut}
+						>
+							Sign out
+						</span>
+						<img
+							src={user.photoURL}
+							className='max-h-8 lg:max-h-10 rounded-full'
+							alt={user.displayName}
+						/>
+					</div>
 				)}
 			</header>
 			<section className='max-w-xl mx-auto grid relative'>
-				{flash.show && <FlashMsg msg={flash.msg} setFlash={setFlash} />}
+				{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
 				{user && <NewPost />}
 				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
 			</section>
