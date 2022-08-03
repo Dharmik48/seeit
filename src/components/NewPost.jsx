@@ -12,7 +12,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { colRef, storage } from '../firebase/firebase';
 
-export default function NewPost() {
+export default function NewPost({currentUser}) {
 	const [titleText, setTitleText] = useState('');
 	const [imgFile, setImgFile] = useState(null);
 	const [previewImgUrl, setPreviewImgUrl] = useState('');
@@ -26,6 +26,8 @@ export default function NewPost() {
 
 		const image = imgFile;
 		const imgRef = ref(storage, `/images/${v4()}`);
+		console.log('userName2: ', currentUser.displayName);
+		console.log('userPhoto2: ', currentUser.photoURL);
 		uploadBytes(imgRef, image).then(async () => {
 			const url = await getDownloadURL(imgRef);
 			addDoc(colRef, {
@@ -33,6 +35,9 @@ export default function NewPost() {
 				img: url,
 				createdAt: serverTimestamp(),
 				likedBy: [],
+				uid: currentUser.uid,
+				userPhoto: currentUser.photoURL,
+				userName: currentUser.displayName,
 			}).then(() => {
 				setTitleText('');
 				setImgFile(null);

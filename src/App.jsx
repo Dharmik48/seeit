@@ -75,8 +75,8 @@ function App() {
 			</header>
 			<section className='max-w-xl mx-auto grid relative'>
 				{flash.show && <FlashMsg msg={flash.msg} setFlash={setFlash} />}
-				{user && <NewPost />}
-				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
+				{user && <NewPost currentUser={user}/>}
+				<Posts posts={posts} currentUser={user} setFlash={setFlash}/>
 			</section>
 		</main>
 	);
