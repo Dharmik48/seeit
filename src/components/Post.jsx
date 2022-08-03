@@ -16,7 +16,12 @@ export default function Post({ data, currentUser: user, setFlash}) {
 
 	function likePost() {
 		if (!user) {
-			setFlash({ show: true, msg: 'Please Sign In first!' });
+			setFlash(prevFlash => ({
+				...prevFlash,
+				show: true,
+				msg: 'Please Sign In first!',
+				success: false,
+			}));
 			return;
 		}
 		const docRef = doc(db, 'posts', data.id);
