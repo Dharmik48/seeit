@@ -68,7 +68,7 @@ function App() {
 				) : (
 					<img
 						src={user.photoURL}
-						className='max-h-8 lg:max-h-10'
+						className='max-h-8 lg:max-h-10 rounded-full'
 						alt={user.displayName}
 					/>
 				)}
