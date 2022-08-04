@@ -26,8 +26,7 @@ export default function NewPost({currentUser}) {
 
 		const image = imgFile;
 		const imgRef = ref(storage, `/images/${v4()}`);
-		console.log('userName2: ', currentUser.displayName);
-		console.log('userPhoto2: ', currentUser.photoURL);
+
 		uploadBytes(imgRef, image).then(async () => {
 			const url = await getDownloadURL(imgRef);
 			addDoc(colRef, {
