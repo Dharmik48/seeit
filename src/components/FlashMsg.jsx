@@ -6,7 +6,7 @@ export default function FlashMsg({ flash, setFlash }) {
 
 	return (
 		<div
-			className={`max-w-fit flex items-center gap-10 justify-between text-primary  sticky py-3 px-5 rounded-lg shadow-lg top-5 mx-auto ${bgColor}`}
+			className={`min-w-max flex items-center gap-10 justify-between text-primary fixed py-3 px-5 rounded-lg shadow-lg left-1/2 -translate-x-1/2 bottom-12 ${bgColor}`}
 		>
 			{flash.msg}
 			<FontAwesomeIcon
