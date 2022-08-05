@@ -52,7 +52,7 @@ export default function Post({ data, currentUser: user, setFlash}) {
 						className='w-16 h-auto rounded-full object-fit'
 					/>
 				</div>
-				<div className='col-span-2 ml-2 my-auto'>
+				<div className='col-start-2 col-end-7 ml-2 my-auto'>
 					<h1 className='dark:text-primary text-sm lg:text-base'>{data.userName}</h1>
 				</div>
 			</div>
