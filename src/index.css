@@ -2,25 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-.wrapper {
-    display: grid;
-    grid-template-columns: 10% 60% 30%;
+@media only screen and (min-width: 769px){
+    .wrapper {
+        display: grid;
+        grid-template-columns: 10% 60% 30%;
+    }
+    
+    .userAvatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .postUserName {
+        font-size: 15px;
+        text-align: left;
+    }
 }
 
-.userAvatar {
-    width: 50px;
-	height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+@media only screen and (max-width: 768px){
+    .wrapper {
+        display: grid;
+        grid-template-columns: 10% 70% 20%;
+    }
+
+    .userAvatar {
+        width: 7vw;
+        height: 7vw;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .postUserName {
+        font-size: 2vw;
+        text-align: left;
+    }
 }
 
-.postUserName {
-    font-size: 20px;
-    text-align: left;
-}
-@media only screen and (max-width: 360px){
+@media only screen and (max-width: 480px){
     .wrapper {
         display: grid;
         grid-template-columns: 20% 60% 20%;
+    }
+
+    .userAvatar {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .postUserName {
+        font-size: 4vw;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 250px){
+    .wrapper {
+        display: grid;
+        grid-template-columns: 25% 55% 20%;
+    }
+
+    .userAvatar {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .postUserName {
+        font-size: 5vw;
+        text-align: left;
     }
 }
