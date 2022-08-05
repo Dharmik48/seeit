@@ -7,6 +7,8 @@ import Posts from './components/Posts';
 import { auth, colRef, provider } from './firebase/firebase';
 import useDarkMode from './hooks/useDarkMode';
 import FlashMsg from './components/FlashMsg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 	const [posts, setPosts] = useState([]);
@@ -64,19 +66,9 @@ function App() {
 	return (
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText'>
 			<header
-				className={`max-w-3xl flex items-center justify-between mx-auto border-b border-darkText pb-3 lg:pb-5 ${
-					user && 'mb-5 lg:mb-10'
-				}`}
+				className={`max-w-3xl flex items-center justify-between mx-auto border-b border-darkText pb-3 lg:pb-5 mb-5 lg:mb-10`}
 			>
 				<h1 className='text-2xl dark:text-primary'>👀 SeeIt</h1>
-				<div className='flex items-center'>
-					<label
-						className='flex items-center'
-						onClick={() => setTheme(colorTheme)}
-					>
-						<input type='checkbox' className='' />
-					</label>
-				</div>
 				{!user ? (
 					<button
 						onClick={() => signInWithGoogle()}
@@ -102,6 +94,25 @@ function App() {
 				)}
 			</header>
 			<section className='max-w-xl mx-auto grid relative'>
+				<div className={`max-w-fit ml-auto ${user && 'mb-5'}`}>
+					<label
+						className='relative py-1 px-1.5 w-14 grid items-center h-7 bg-primary rounded-full cursor-pointer'
+						htmlFor='themeCheckbox'
+						onClick={() => setTheme(colorTheme)}
+					>
+						<FontAwesomeIcon
+							icon={colorTheme === 'light' ? faMoon : faSun}
+							className={`h-5 aspect-square rounded-full transition-transform ${
+								colorTheme === 'light' ? 'translate-x-0.5' : 'translate-x-6'
+							}`}
+						/>
+					</label>
+					<input
+						type='checkbox'
+						id='themeCheckbox'
+						className='opacity-0 absolute'
+					/>
+				</div>
 				{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
 				{user && <NewPost currentUser={user} />}
 				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
