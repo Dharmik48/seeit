@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as heartOutline } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 
-export default function Post({ data, currentUser: user, setFlash }) {
+export default function Post({ data, currentUser: user, setFlash}) {
 	const [isLiked, setIsLiked] = useState(data.likedBy.includes(user?.uid));
 
 	useEffect(() => {
@@ -44,6 +44,18 @@ export default function Post({ data, currentUser: user, setFlash }) {
 			className='bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText 
 		dark:border-darkText dark:rounded-lg'
 		>
+			<div className='p-4 grid grid-cols-7 gap-x-0'>
+				<div className='col-span-1 mr-0 my-auto'>
+					<img
+						src={data.userPhoto}
+						alt={data.userName || 'unknown'}
+						className='w-16 h-auto rounded-full object-fit'
+					/>
+				</div>
+				<div className='col-start-2 col-end-7 ml-2 my-auto'>
+					<h1 className='dark:text-primary text-sm lg:text-base'>{data.userName}</h1>
+				</div>
+			</div>
 			<div className='p-4'>
 				<h1 className='mx-auto mb-5 dark:text-primary'>{data.title}</h1>
 				<img src={data.img} className='mx-auto' alt={data.title} />
