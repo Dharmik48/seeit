@@ -114,7 +114,7 @@ function App() {
 					/>
 				</div>
 				{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
-				{user && <NewPost />}
+				{user && <NewPost currentUser={user} />}
 				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
 			</section>
 		</main>
