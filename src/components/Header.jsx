@@ -8,14 +8,6 @@ const Header =(props)=>{
         }`}
     >
         <h1 className='text-2xl dark:text-primary'>👀 SeeIt</h1>
-        <div className='flex items-center'>
-            <label
-                className='flex items-center'
-                onClick={() => props.setTheme(props.colorTheme)}
-            >
-                <input type='checkbox' className='' />
-            </label>
-        </div>
         {!props.user ? (
             <button
                 onClick={() => props.signInWithGoogle()}
