@@ -66,7 +66,7 @@ function App() {
 
 	return (
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText'>
-      <Header setTheme={setTheme} colorTheme={colorTheme} user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
+      		<Header setTheme={setTheme} colorTheme={colorTheme} user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
 			<section className='max-w-xl mx-auto grid relative'>
 				<div className={`max-w-fit ml-auto ${user && 'mb-5'}`}>
 					<label

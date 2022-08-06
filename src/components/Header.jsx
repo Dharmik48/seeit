@@ -3,10 +3,8 @@ import React from "react";
 const Header =(props)=>{
     return(
         <header
-        className={`max-w-3xl flex items-center justify-between mx-auto border-b border-darkText pb-3 lg:pb-5 ${
-            props.user && 'mb-5 lg:mb-10'
-        }`}
-    >
+            className='max-w-3xl flex items-center justify-between mx-auto border-b border-darkText pb-3 lg:pb-5 mb-5 lg:mb-10'
+        >
         <h1 className='text-2xl dark:text-primary'>👀 SeeIt</h1>
         {!props.user ? (
             <button
