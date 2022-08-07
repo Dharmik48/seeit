@@ -105,7 +105,7 @@ export default function NewPost({currentUser}) {
 					</div>
 					<button
 						className='border-2 border-secondary py-2 px-6 rounded-full justify-self-end transition-colors hover:bg-secondary'
-						onClick={post}
+						onClick={!isPosting ? post : undefined}
 					>
 						{isPosting ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Post'}
 					</button>
