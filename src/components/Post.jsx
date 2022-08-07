@@ -44,18 +44,6 @@ export default function Post({ data, currentUser: user, setFlash}) {
 			className='bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText
 		dark:border-darkText dark:rounded-lg'
 		>
-			{/*<div className='p-4 grid grid-cols-7 gap-x-0'>
-				<div className='col-span-1 mr-0 my-auto'>
-					<img
-						src={data.userPhoto}
-						alt={data.userName || 'unknown'}
-						className='w-16 h-auto rounded-full object-fit'
-					/>
-				</div>
-				<div className='col-start-2 col-end-7 ml-2 my-auto'>
-					<h1 className='dark:text-primary text-sm lg:text-base'>{data.userName}</h1>
-				</div>
-			</div>*/}
 			<div className='p-4 flex flex-col items-start gap-5'>
 				<div className='flex items-center gap-2'>
 					<img
