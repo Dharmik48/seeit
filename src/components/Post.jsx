@@ -41,10 +41,10 @@ export default function Post({ data, currentUser: user, setFlash}) {
 
 	return (
 		<div
-			className='bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText 
+			className='bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText
 		dark:border-darkText dark:rounded-lg'
 		>
-			<div className='p-4 grid grid-cols-7 gap-x-0'>
+			{/*<div className='p-4 grid grid-cols-7 gap-x-0'>
 				<div className='col-span-1 mr-0 my-auto'>
 					<img
 						src={data.userPhoto}
@@ -55,9 +55,17 @@ export default function Post({ data, currentUser: user, setFlash}) {
 				<div className='col-start-2 col-end-7 ml-2 my-auto'>
 					<h1 className='dark:text-primary text-sm lg:text-base'>{data.userName}</h1>
 				</div>
-			</div>
-			<div className='p-4'>
-				<h1 className='mx-auto mb-5 dark:text-primary'>{data.title}</h1>
+			</div>*/}
+			<div className='p-4 flex flex-col items-start gap-5'>
+				<div className='flex items-center gap-2'>
+					<img
+						src={data.userPhoto}
+						alt={data.userName || 'unknown'}
+						className='h-10 aspect-square'
+					/>
+					<h1 className='text-sm'>{data.userName}</h1>
+				</div>
+				<h1 className='dark:text-primary'>{data.title}</h1>
 				<img src={data.img} className='mx-auto' alt={data.title} />
 			</div>
 			<div className='bg-primary px-4 py-2 rounded-lg flex items-center gap-1 dark:bg-darkText'>
