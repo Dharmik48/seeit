@@ -59,56 +59,58 @@ export default function NewPost({currentUser}) {
     dark:bg-darkText dark:border-primary dark:text-primary '
 		>
 			<form
-				className='flex items-center border-2 border-secondary rounded-lg dark:border-[#ccc] dark:bg-darkText dark:text-darkText'
 				onSubmit={e => post(e)}
 			>
-				<FontAwesomeIcon
-					icon={faAdd}
-					size='lg'
-					className='p-2 lg:p-3 dark:text-primary'
-				/>
-				<input
-					type='text'
-					placeholder='New Post'
-					value={titleText}
-					className='w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none 
-          dark:bg-darkText dark:border-[#ccc] dark:text-primary'
-					onChange={e => setTitleText(e.target.value)}
-				/>
-				<label htmlFor='imageUploadBtn' className='p-3 lg:p-3.5 cursor-pointer'>
-					{/* show image svg */}
+				<div className='flex items-center border-2 border-secondary rounded-lg dark:border-[#ccc] dark:bg-darkText dark:text-darkText'>
 					<FontAwesomeIcon
-						icon={faImage}
+						icon={faAdd}
 						size='lg'
-						className='text-lg lg:text-xl dark:text-primary'
+						className='p-2 lg:p-3 dark:text-primary'
 					/>
-				</label>
-				<input
-					type='file'
-					id='imageUploadBtn'
-					className='hidden'
-					onChange={e => showImgPreview(e)}
-				/>
-			</form>
-			{previewImgUrl && (
-				<>
-					<div className='relative my-3'>
-						<img src={previewImgUrl} className='w-full' />
+					<input
+						type='text'
+						placeholder='New Post'
+						value={titleText}
+						className='w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none
+							dark:bg-darkText dark:border-[#ccc] dark:text-primary'
+						onChange={e => setTitleText(e.target.value)}
+					/>
+					<label htmlFor='imageUploadBtn' className='p-3 lg:p-3.5 cursor-pointer'>
+						{/* show image svg */}
 						<FontAwesomeIcon
-							icon={faTimesCircle}
-							size='2xl'
-							className='absolute top-3 right-3 cursor-pointer bg-primary aspect-square rounded-full text-[#181a1d]'
-							onClick={() => setPreviewImgUrl('')}
+							icon={faImage}
+							size='lg'
+							className='text-lg lg:text-xl dark:text-primary'
 						/>
+					</label>
+					<input
+						type='file'
+						id='imageUploadBtn'
+						className='hidden'
+						onChange={e => showImgPreview(e)}
+					/>
+				</div>
+				{previewImgUrl && (
+					<div className='grid'>
+						<div className='relative my-3'>
+							<img src={previewImgUrl} className='w-full' />
+							<FontAwesomeIcon
+								icon={faTimesCircle}
+								size='2xl'
+								className='absolute top-3 right-3 cursor-pointer bg-primary aspect-square rounded-full text-[#181a1d]'
+								onClick={() => setPreviewImgUrl('')}
+							/>
+						</div>
+						<button
+							className='border-2 border-secondary py-2 px-6 rounded-full justify-self-end transition-colors hover:bg-secondary'
+							onClick={post}
+							disabled={isPosting}
+						>
+							{isPosting ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Post'}
+						</button>
 					</div>
-					<button
-						className='border-2 border-secondary py-2 px-6 rounded-full justify-self-end transition-colors hover:bg-secondary'
-						onClick={post}
-					>
-						{isPosting ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Post'}
-					</button>
-				</>
-			)}
+				)}
+			</form>
 		</div>
 	);
 }
