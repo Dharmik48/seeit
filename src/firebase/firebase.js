@@ -16,8 +16,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
-export const storage = getStorage(app);
-export const colRef = collection(db, 'posts');
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const storage = getStorage(app);
+const postsColRef = collection(db, 'posts');
+const usersColRef = collection(db, 'users');
+
+export {db, auth, provider, storage, postsColRef, usersColRef}
