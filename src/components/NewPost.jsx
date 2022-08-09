@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { addDoc, serverTimestamp } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
-import { colRef, storage } from '../firebase/firebase';
+import { postsColRef, storage } from '../firebase/firebase';
 
 export default function NewPost({currentUser}) {
 	const [titleText, setTitleText] = useState('');
@@ -29,14 +29,12 @@ export default function NewPost({currentUser}) {
 
 		uploadBytes(imgRef, image).then(async () => {
 			const url = await getDownloadURL(imgRef);
-			addDoc(colRef, {
+			addDoc(postsColRef, {
 				title: titleText,
 				img: url,
 				createdAt: serverTimestamp(),
 				likedBy: [],
 				uid: currentUser.uid,
-				userPhoto: currentUser.photoURL,
-				userName: currentUser.displayName,
 			}).then(() => {
 				setTitleText('');
 				setImgFile(null);

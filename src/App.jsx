@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 // COMPONENTS
 import { signInWithPopup, signOut } from 'firebase/auth';
-import { onSnapshot, orderBy, query } from 'firebase/firestore';
+import {addDoc, doc, onSnapshot, orderBy, query, setDoc} from 'firebase/firestore';
 import NewPost from './components/NewPost';
 import Posts from './components/Posts';
-import { auth, colRef, provider } from './firebase/firebase';
+import { auth, postsColRef, usersColRef, provider, db } from './firebase/firebase';
 import useDarkMode from './hooks/useDarkMode';
 import FlashMsg from './components/FlashMsg';
 import Header  from './components/Header';
@@ -22,7 +22,7 @@ function App() {
 	const [setTheme, colorTheme] = useDarkMode();
 
 	useEffect(() => {
-		onSnapshot(query(colRef, orderBy('createdAt', 'desc')), snapshot => {
+		onSnapshot(query(postsColRef, orderBy('createdAt', 'desc')), snapshot => {
 			const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 			setPosts(data);
 		});
@@ -31,7 +31,7 @@ function App() {
 	useEffect(() => {
 		let timeout;
 		if (flash.show) {
-			timeout = setTimeout(() => setFlash({ show: false, msg: '' }), 5000);
+			timeout = setTimeout(() => setFlash({ show: false, msg: '', success: false }), 5000);
 		}
 
 		return () => {
@@ -41,14 +41,18 @@ function App() {
 
 	const signInWithGoogle = async () => {
 		const data = await signInWithPopup(auth, provider);
-		data &&
-			setFlash(prevFlash => ({
-				...prevFlash,
-				show: true,
-				msg: 'Signed In Successfully',
-				success: 'true',
-			}));
 		const { uid, photoURL, email, displayName } = data.user;
+		const userRef = doc(db, 'users', uid);
+
+		setDoc(userRef, {uid, photoURL, email, displayName})
+			.then(() => {
+				setFlash(prevFlash => ({
+					...prevFlash,
+					show: true,
+					msg: 'Signed In Successfully',
+					success: true,
+			}));
+		})
 		setUser({ uid, photoURL, email, displayName });
 	};
 
