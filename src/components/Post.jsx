@@ -59,13 +59,13 @@ export default function Post({ data, currentUser: user, setFlash}) {
 		dark:border-darkText'
 		>
 			<div className='p-4 flex flex-col items-start gap-5'>
-				<div className='flex items-center gap-2'>
+				<div className='w-full flex items-center gap-2'>
 					<img
 						src={postOwner.photoURL}
 						alt={postOwner.displayName || 'unknown'}
 						className='h-10 aspect-square'
 					/>
-					<h1 className='text-sm dark:text-primary'>{postOwner.displayName}</h1>
+					<h1 className='w-full text-sm dark:text-primary'>{postOwner.displayName}</h1>
 				</div>
 				<h1 className='dark:text-primary'>{data.title}</h1>
 				<img src={data.img} className='mx-auto' alt={data.title} />
