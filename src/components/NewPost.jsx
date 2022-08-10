@@ -62,17 +62,12 @@ export default function NewPost({currentUser}) {
 				onSubmit={e => post(e)}
 			>
 				<div className='flex items-center border-2 border-secondary rounded-lg dark:border-[#ccc] dark:bg-darkText dark:text-darkText'>
-					<FontAwesomeIcon
-						icon={faAdd}
-						size='lg'
-						className='p-2 lg:p-3 dark:text-primary'
-					/>
 					<input
 						type='text'
 						placeholder='New Post'
 						value={titleText}
-						className='w-full bg-primary h-full p-2 lg:p-4 border-x-2 border-secondary focus:outline-none
-							dark:bg-darkText dark:border-[#ccc] dark:text-primary'
+						className='w-full bg-primary h-full p-2 lg:p-4 border-r-2 border-secondary focus:outline-none
+							dark:bg-darkText dark:border-[#ccc] dark:text-primary rounded-l-lg'
 						onChange={e => setTitleText(e.target.value)}
 					/>
 					<label htmlFor='imageUploadBtn' className='p-3 lg:p-3.5 cursor-pointer'>
