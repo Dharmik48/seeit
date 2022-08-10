@@ -55,8 +55,8 @@ export default function NewPost({currentUser}) {
 
 	return (
 		<div
-			className='grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg 
-    dark:bg-darkText dark:border-primary dark:text-primary '
+			className={`grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg 
+    dark:bg-darkText dark:border-primary dark:text-primary ${currentUser && 'mt-5'}`}
 		>
 			<form
 				onSubmit={e => post(e)}

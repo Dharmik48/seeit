@@ -5,11 +5,9 @@ import {doc, onSnapshot, orderBy, query, setDoc} from 'firebase/firestore';
 import NewPost from './components/NewPost';
 import Posts from './components/Posts';
 import { auth, postsColRef, provider, db } from './firebase/firebase';
-import useDarkMode from './hooks/useDarkMode';
 import FlashMsg from './components/FlashMsg';
 import Header  from './components/Header';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import ThemeToggle from "./components/ThemeToggle.jsx";
 
 function App() {
 	const [posts, setPosts] = useState([]);
@@ -19,7 +17,6 @@ function App() {
 		msg: '',
 		success: false,
 	});
-	const [setTheme, colorTheme] = useDarkMode();
 
 	useEffect(() => {
 		onSnapshot(query(postsColRef, orderBy('createdAt', 'desc')), snapshot => {
@@ -72,25 +69,7 @@ function App() {
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText'>
       		<Header user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
 			<section className='max-w-xl mx-auto grid relative'>
-				<div className={`max-w-fit ml-auto ${user && 'mb-5'}`}>
-					<label
-						className='relative py-1 px-1.5 w-14 grid items-center h-7 bg-primary rounded-full cursor-pointer'
-						htmlFor='themeCheckbox'
-						onClick={() => setTheme(colorTheme)}
-					>
-						<FontAwesomeIcon
-							icon={colorTheme === 'light' ? faMoon : faSun}
-							className={`h-5 aspect-square rounded-full transition-transform ${
-								colorTheme === 'light' ? 'translate-x-0.5' : 'translate-x-6'
-							}`}
-						/>
-					</label>
-					<input
-						type='checkbox'
-						id='themeCheckbox'
-						className='opacity-0 absolute'
-					/>
-				</div>
+				<ThemeToggle />
 				{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
 				{user && <NewPost currentUser={user} />}
 				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
