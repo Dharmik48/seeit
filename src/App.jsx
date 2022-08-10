@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 // COMPONENTS
 import { signInWithPopup, signOut } from 'firebase/auth';
-import {addDoc, doc, onSnapshot, orderBy, query, setDoc} from 'firebase/firestore';
+import {doc, onSnapshot, orderBy, query, setDoc} from 'firebase/firestore';
 import NewPost from './components/NewPost';
 import Posts from './components/Posts';
-import { auth, postsColRef, usersColRef, provider, db } from './firebase/firebase';
+import { auth, postsColRef, provider, db } from './firebase/firebase';
 import useDarkMode from './hooks/useDarkMode';
 import FlashMsg from './components/FlashMsg';
 import Header  from './components/Header';
@@ -70,7 +70,7 @@ function App() {
 
 	return (
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText'>
-      		<Header setTheme={setTheme} colorTheme={colorTheme} user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
+      		<Header user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
 			<section className='max-w-xl mx-auto grid relative'>
 				<div className={`max-w-fit ml-auto ${user && 'mb-5'}`}>
 					<label
