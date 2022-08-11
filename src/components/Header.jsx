@@ -25,7 +25,7 @@ const Header =(props)=>{
                 <img
                     src={props.user.photoURL}
                     className='max-h-8 lg:max-h-10 rounded-full'
-                    alt={props.user.displayName}
+                    alt={props.user.displayName}  loading="lazy"
                 />
             </div>
         )}
