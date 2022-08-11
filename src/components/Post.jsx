@@ -63,12 +63,12 @@ export default function Post({ data, currentUser: user, setFlash}) {
 					<img
 						src={postOwner.photoURL}
 						alt={postOwner.displayName || 'unknown'}
-						className='h-10 aspect-square'
+						className='h-10 aspect-square'  loading="lazy"
 					/>
 					<h1 className='w-full text-sm dark:text-primary'>{postOwner.displayName}</h1>
 				</div>
 				<h1 className='dark:text-primary'>{data.title}</h1>
-				<img src={data.img} className='mx-auto' alt={data.title} />
+				<img src={data.img} className='mx-auto' alt={data.title}   loading="lazy"/>
 			</div>
 			<div className='flex items-center justify-between px-4 py-2 rounded-lg flex items-center gap-1 dark:bg-darkText'>
 				<div className='flex items-center gap-0.5'>
