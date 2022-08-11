@@ -1,29 +1,23 @@
 import { useEffect, useState } from 'react';
-// COMPONENTS
+import {Routes, Route} from "react-router-dom";
+// FIREBASE
 import { signInWithPopup, signOut } from 'firebase/auth';
-import {doc, onSnapshot, orderBy, query, setDoc} from 'firebase/firestore';
+import {doc, setDoc} from 'firebase/firestore';
+import { auth, provider, db } from './firebase/firebase';
+// COMPONENTS
 import NewPost from './components/NewPost';
 import Posts from './components/Posts';
-import { auth, postsColRef, provider, db } from './firebase/firebase';
 import FlashMsg from './components/FlashMsg';
 import Header  from './components/Header';
 import ThemeToggle from "./components/ThemeToggle.jsx";
 
 function App() {
-	const [posts, setPosts] = useState([]);
 	const [user, setUser] = useState(null);
 	const [flash, setFlash] = useState({
 		show: false,
 		msg: '',
 		success: false,
 	});
-
-	useEffect(() => {
-		onSnapshot(query(postsColRef, orderBy('createdAt', 'desc')), snapshot => {
-			const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-			setPosts(data);
-		});
-	}, []);
 
 	useEffect(() => {
 		let timeout;
@@ -72,7 +66,10 @@ function App() {
 				<ThemeToggle />
 				{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
 				{user && <NewPost currentUser={user} />}
-				<Posts posts={posts} currentUser={user} setFlash={setFlash} />
+				<Routes>
+					<Route exact path='/' element={<Posts currentUser={user} setFlash={setFlash} />} />
+					<Route path='/posts/:postId' element={<Posts id={'id'} currentUser={user} setFlash={setFlash} />} />
+				</Routes>
 			</section>
 		</main>
 	);

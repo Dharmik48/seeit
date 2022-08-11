@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
+import {Link} from "react-router-dom";
 // FIREBASE
 import { doc, updateDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 // FONTAWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faHeart as heartOutline, faTrashAlt} from '@fortawesome/free-regular-svg-icons';
+import {faHeart as heartOutline, faMessage, faTrashAlt} from '@fortawesome/free-regular-svg-icons';
 import {faHeart as heartFilled} from '@fortawesome/free-solid-svg-icons';
 
 export default function Post({ data, currentUser: user, setFlash}) {
-	const [isLiked, setIsLiked] = useState(data.likedBy.includes(user?.uid));
+	const [isLiked, setIsLiked] = useState(false);
 	const [docRef, setDocRef] = useState({});
 	const [postOwner, setPostOwner] = useState({});
 
@@ -71,18 +72,26 @@ export default function Post({ data, currentUser: user, setFlash}) {
 				<img src={data.img} className='mx-auto' alt={data.title} />
 			</div>
 			<div className='flex items-center justify-between px-4 py-2 rounded-lg flex items-center gap-1 dark:bg-darkText'>
-				<div className='flex items-center gap-0.5'>
-					<FontAwesomeIcon
-						icon={isLiked ? heartFilled : heartOutline}
-						className={`cursor-pointer transition-colors ${
-							isLiked ? 'text-brightRed' : 'hover:text-lightRed'
-						}`}
-						size='lg'
-						onClick={likePost}
-					/>
-					<span className='font-primary dark:text-primary'>{data.likedBy.length}</span>
+				<div className='flex items-center gap-2'>
+					<div className='flex items-center gap-0.5'>
+						<FontAwesomeIcon
+							icon={isLiked ? heartFilled : heartOutline}
+							className={`cursor-pointer transition-colors dark:text-primary ${
+								isLiked ? 'text-brightRed' : 'hover:text-lightRed'
+							}`}
+							size='lg'
+							onClick={likePost}
+						/>
+						<span className='font-primary dark:text-primary'>{data.likedBy.length}</span>
+					</div>
+					<Link to={`/posts/${data.id}`} className='flex items-center gap-0.5'>
+						<FontAwesomeIcon icon={faMessage} className='cursor-pointer dark:text-primary' />
+						<span className='font-primary dark:text-primary'>{data.likedBy.length}</span>
+					</Link>
 				</div>
-				{postOwner.uid === user?.uid && <FontAwesomeIcon icon={faTrashAlt} className='cursor-pointer dark:text-primary' onClick={() => deletePost()}/>}
+				{postOwner.uid === user?.uid &&
+					<FontAwesomeIcon icon={faTrashAlt} className='cursor-pointer dark:text-primary' onClick={() => deletePost()}/>
+				}
 			</div>
 		</div>
 	);
