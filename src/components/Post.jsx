@@ -63,7 +63,11 @@ export default function Post({ data, currentUser: user, setFlash}) {
 					<img
 						src={postOwner.photoURL}
 						alt={postOwner.displayName || 'unknown'}
-						className='h-10 aspect-square'
+						onError={(e) => {
+							{console.log(postOwner, '🐻‍')}
+							e.target.src = `https://avatars.dicebear.com/api/identicon/${data.uid}.svg`
+						}}
+						className='h-8 aspect-square rounded-full'
 					/>
 					<h1 className='w-full text-sm dark:text-primary'>{postOwner.displayName}</h1>
 				</div>
