@@ -9,6 +9,7 @@ import {faHeart as heartOutline, faMessage, faTrashAlt} from '@fortawesome/free-
 import {faHeart as heartFilled} from '@fortawesome/free-solid-svg-icons';
 
 export default function Post({ data, currentUser: user, setFlash}) {
+	console.log(data)
 	const [isLiked, setIsLiked] = useState(false);
 	const [docRef, setDocRef] = useState({});
 	const [postOwner, setPostOwner] = useState({});
@@ -65,7 +66,6 @@ export default function Post({ data, currentUser: user, setFlash}) {
 						src={postOwner.photoURL}
 						alt={postOwner.displayName || 'unknown'}
 						onError={(e) => {
-							{console.log(postOwner, '🐻‍')}
 							e.target.src = `https://avatars.dicebear.com/api/identicon/${data.uid}.svg`
 						}}
 						className='h-8 aspect-square rounded-full'
@@ -77,7 +77,7 @@ export default function Post({ data, currentUser: user, setFlash}) {
 			</div>
 			<div className='flex items-center justify-between px-4 py-2 rounded-lg flex items-center gap-1 dark:bg-darkText'>
 				<div className='flex items-center gap-2'>
-					<div className='flex items-center gap-0.5'>
+					<div className='flex items-center gap-1'>
 						<FontAwesomeIcon
 							icon={isLiked ? heartFilled : heartOutline}
 							className={`cursor-pointer transition-colors dark:text-primary ${
@@ -88,7 +88,7 @@ export default function Post({ data, currentUser: user, setFlash}) {
 						/>
 						<span className='font-primary dark:text-primary'>{data.likedBy.length}</span>
 					</div>
-					<Link to={`/posts/${data.id}`} className='flex items-center gap-0.5'>
+					<Link to={`/posts/${data.id}`} className='flex items-center gap-1'>
 						<FontAwesomeIcon icon={faMessage} className='cursor-pointer dark:text-primary' />
 						<span className='font-primary dark:text-primary'>{data.likedBy.length}</span>
 					</Link>

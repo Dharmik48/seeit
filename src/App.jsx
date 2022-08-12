@@ -10,6 +10,7 @@ import Posts from './components/Posts';
 import FlashMsg from './components/FlashMsg';
 import Header  from './components/Header';
 import ThemeToggle from "./components/ThemeToggle.jsx";
+import PostDetail from "./components/PostDetail.jsx";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -68,7 +69,7 @@ function App() {
 				{user && <NewPost currentUser={user} />}
 				<Routes>
 					<Route exact path='/' element={<Posts currentUser={user} setFlash={setFlash} />} />
-					<Route path='/posts/:postId' element={<Posts id={'id'} currentUser={user} setFlash={setFlash} />} />
+					<Route path='/posts/:postId' element={<PostDetail currentUser={user} setFlash={setFlash} />} />
 				</Routes>
 			</section>
 		</main>
