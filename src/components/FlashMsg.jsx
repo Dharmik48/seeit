@@ -1,7 +1,9 @@
+import useFlash from "../hooks/useFlash.js";
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function FlashMsg({ flash, setFlash }) {
+export default function FlashMsg(	) {
+	const [setFlash, flash] = useFlash();
 	const bgColor = flash.success ? 'bg-brightGreen' : 'bg-brightRed';
 
 	return (

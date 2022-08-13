@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {Routes, Route} from "react-router-dom";
+import useFlash from "./hooks/useFlash.js";
 // FIREBASE
 import { signInWithPopup, signOut } from 'firebase/auth';
 import {doc, setDoc} from 'firebase/firestore';
@@ -14,22 +15,7 @@ import PostDetail from "./components/PostDetail.jsx";
 
 function App() {
 	const [user, setUser] = useState(null);
-	const [flash, setFlash] = useState({
-		show: false,
-		msg: '',
-		success: false,
-	});
-
-	useEffect(() => {
-		let timeout;
-		if (flash.show) {
-			timeout = setTimeout(() => setFlash({ show: false, msg: '', success: false }), 5000);
-		}
-
-		return () => {
-			clearTimeout(timeout);
-		};
-	}, [flash]);
+	const [setFlash, flash] = useFlash();
 
 	const signInWithGoogle = async () => {
 		const data = await signInWithPopup(auth, provider);
@@ -65,7 +51,7 @@ function App() {
       		<Header user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
 			<section className='max-w-xl mx-auto grid relative'>
 				<ThemeToggle />
-				{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
+				{flash.show && <FlashMsg />}
 				{user && <NewPost currentUser={user} />}
 				<Routes>
 					<Route exact path='/' element={<Posts currentUser={user} setFlash={setFlash} />} />
