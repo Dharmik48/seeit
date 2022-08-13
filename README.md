@@ -56,7 +56,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![SeeIt Home][product-screenshot]](https://example.com)
+[![SeeIt Home][product-screenshot]](https://seeit-brown.vercel.app/)
+[![SeeIt Home][product-screenshot-dark]](https://seeit-brown.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,6 +154,7 @@ Thanks a lot for spending your time helping SeeIt grow. Thanks a lot! Keep rocki
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: src/imgs/seeitCap.png
+[product-screenshot-dark]: src/imgs/seeitDark.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [TailwindCSS-url]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
