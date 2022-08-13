@@ -132,6 +132,12 @@ Project Link: [https://github.com/Dharmik48/seeit](https://github.com/Dharmik48/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## 💪 Thanks to all Contributors
+
+Thanks a lot for spending your time helping SeeIt grow. Thanks a lot! Keep rocking 🍻
+
+[![Contributors](https://contrib.rocks/image?repo=Dharmik48/seeit)](https://github.com/Dharmik48/seeit/graphs/contributors)
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Dharmik48/seeit.svg?style=for-the-badge
@@ -157,3 +163,4 @@ Project Link: [https://github.com/Dharmik48/seeit](https://github.com/Dharmik48/
 [HTML5-img]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
 [Firebase-url]: https://firebase.google.com/
 [Firebase-img]: https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white
+[contributors-url]: https://github.com/Dharmik48/seeit/graphs/contributors
