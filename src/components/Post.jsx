@@ -10,16 +10,18 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
 import { useToast } from "../contexts/ToastContext";
-
-export default function Post({ data, currentUser: user }) {
+import { useUser } from "../contexts/UserContext";
+export default function Post({ data }) {
+    const { setToast } = useToast();
+    const { user, setUser } = useUser();
     const [isLiked, setIsLiked] = useState(data.likedBy.includes(user?.uid));
     const [docRef, setDocRef] = useState({});
     const [postOwner, setPostOwner] = useState({});
-    const { setToast } = useToast();
 
     useEffect(() => {
         setIsLiked(data.likedBy.includes(user?.uid));
-    }, [user]);
+        /// using user.email in depedency array because it is bad practice to use object i.e user. for info ref --> https://www.youtube.com/watch?v=QQYeipc_cik
+    }, [user.email]);
 
     useEffect(() => {
         setDocRef(doc(db, "posts", data.id));
