@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 // FIREBASE
 import { doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";

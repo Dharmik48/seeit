@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import ThemeToggle from "./components/ThemeToggle.jsx";
 import Toast from "./components/Toast";
 import { useUser } from "./contexts/UserContext";
+import Skeleton from "react-loading-skeleton";
 
 function App() {
     const [posts, setPosts] = useState([]);
@@ -33,6 +34,7 @@ function App() {
                 <ThemeToggle />
                 <Toast />
                 {user.email && <NewPost />}
+
                 <Posts posts={posts} />
             </section>
         </main>
