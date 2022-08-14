@@ -1,4 +1,4 @@
-import {useEffect, useState} from "@types/react";
+import {useEffect, useState} from "react";
 
 function useFlash() {
     const [flash, setFlash] = useState({
@@ -8,7 +8,7 @@ function useFlash() {
     });
 
     const showFlash = (flashData) => {
-        setFlash(prevFlash => ({...prevFlash, ...flashData}))
+        setFlash({...flashData})
     }
 
     useEffect(() => {

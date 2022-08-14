@@ -24,38 +24,36 @@ function App() {
 
 		setDoc(userRef, {uid, photoURL, email, displayName})
 			.then(() => {
-				setFlash(prevFlash => ({
-					...prevFlash,
+				setFlash({
 					show: true,
 					msg: 'Signed In Successfully',
 					success: true,
-			}));
-		})
+				});
+			})
 		setUser({ uid, photoURL, email, displayName });
 	};
 
 	const signUserOut = () => {
 		signOut(auth).then(() => {
 			setUser(null);
-			setFlash(prevFlash => ({
-				...prevFlash,
+			setFlash({
 				show: true,
 				msg: 'Signed Out Successfully',
 				success: true,
-			}));
+			});
 		});
 	};
 
 	return (
 		<main className='w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText'>
+			{flash.show && <FlashMsg flash={flash} setFlash={setFlash}/>}
       		<Header user={user} signInWithGoogle={signInWithGoogle} signUserOut={signUserOut} />
 			<section className='max-w-xl mx-auto grid relative'>
 				<ThemeToggle />
-				{flash.show && <FlashMsg />}
 				{user && <NewPost currentUser={user} />}
 				<Routes>
-					<Route exact path='/' element={<Posts currentUser={user} setFlash={setFlash} />} />
-					<Route path='/posts/:postId' element={<PostDetail currentUser={user} setFlash={setFlash} />} />
+					<Route exact path='/' element={<Posts currentUser={user} />} />
+					<Route path='/posts/:postId' element={<PostDetail currentUser={user} />} />
 				</Routes>
 			</section>
 		</main>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
+import useFlash from "../hooks/useFlash.js";
 // FIREBASE
 import { doc, updateDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
@@ -7,12 +8,13 @@ import { db } from '../firebase/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faHeart as heartOutline, faMessage, faTrashAlt} from '@fortawesome/free-regular-svg-icons';
 import {faHeart as heartFilled} from '@fortawesome/free-solid-svg-icons';
+import FlashMsg from "./FlashMsg";
 
-export default function Post({ data, currentUser: user, setFlash}) {
-	console.log(data)
+export default function Post({ data, currentUser: user}) {
 	const [isLiked, setIsLiked] = useState(false);
 	const [docRef, setDocRef] = useState({});
 	const [postOwner, setPostOwner] = useState({});
+	const [setFlash, flash] = useFlash();
 
 	useEffect(() => {
 		setIsLiked(data.likedBy.includes(user?.uid));
@@ -27,12 +29,7 @@ export default function Post({ data, currentUser: user, setFlash}) {
 
 	function likePost() {
 		if (!user) {
-			setFlash(prevFlash => ({
-				...prevFlash,
-				show: true,
-				msg: 'Please Sign In first!',
-				success: false,
-			}));
+			setFlash({show: true, success: false, msg: "Please Sign In first!"})
 			return;
 		}
 
@@ -60,6 +57,7 @@ export default function Post({ data, currentUser: user, setFlash}) {
 			className='bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText
 		dark:border-darkText'
 		>
+			{flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
 			<div className='p-4 flex flex-col items-start gap-5'>
 				<div className='w-full flex items-center gap-2'>
 					<img
