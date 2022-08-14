@@ -88,7 +88,7 @@ export default function Post({ data, currentUser: user}) {
 					</div>
 					<Link to={`/posts/${data.id}`} className='flex items-center gap-1'>
 						<FontAwesomeIcon icon={faMessage} className='cursor-pointer dark:text-primary' />
-						<span className='font-primary dark:text-primary'>{data.likedBy.length}</span>
+						<span className='font-primary dark:text-primary'>{data.comments?.length || 0}</span>
 					</Link>
 				</div>
 				{postOwner.uid === user?.uid &&
