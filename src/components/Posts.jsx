@@ -19,6 +19,7 @@ export default function Posts({ currentUser, setFlash }) {
 				data={post}
 				currentUser={currentUser}
 				setFlash={setFlash}
+				key={post.id}
 			/>
 		));
 
