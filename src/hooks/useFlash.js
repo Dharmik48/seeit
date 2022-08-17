@@ -1,20 +1,23 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 function useFlash() {
     const [flash, setFlash] = useState({
         show: false,
-        msg: '',
+        msg: "",
         success: false,
     });
 
     const showFlash = (flashData) => {
-        setFlash({...flashData})
-    }
+        setFlash({ ...flashData });
+    };
 
     useEffect(() => {
         let timeout;
         if (flash.show) {
-            timeout = setTimeout(() => setFlash({ show: false, msg: '', success: false }), 5000);
+            timeout = setTimeout(
+                () => setFlash({ show: false, msg: "", success: false }),
+                5000
+            );
         }
 
         return () => {
@@ -22,7 +25,7 @@ function useFlash() {
         };
     }, [flash]);
 
-    return [showFlash, flash]
+    return [showFlash, flash];
 }
 
 export default useFlash;
