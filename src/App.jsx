@@ -16,9 +16,10 @@ import { useUser } from "./contexts/UserContext.jsx";
 
 function App() {
     const { user } = useUser();
-
+    const [setFlash, flash] = useFlash();
     return (
         <main className="w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText">
+            {flash?.show && <FlashMsg flash={flash} setFlash={setFlash} />}
             <Header />
             <section className="max-w-xl mx-auto grid relative">
                 <ThemeToggle />
