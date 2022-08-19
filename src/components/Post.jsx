@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import useFlash from "../hooks/useFlash.js";
 // FIREBASE
@@ -13,12 +13,14 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
 import FlashMsg from "./FlashMsg";
+import UserContext from "../contexts/UserContext.jsx";
 
-export default function Post({ data, currentUser: user }) {
+export default function Post({ data }) {
     const [isLiked, setIsLiked] = useState(false);
     const [docRef, setDocRef] = useState({});
     const [postOwner, setPostOwner] = useState({});
     const [setFlash, flash] = useFlash();
+    const {user} = useContext(UserContext);
 
     useEffect(() => {
         setIsLiked(data.likedBy.includes(user?.uid));

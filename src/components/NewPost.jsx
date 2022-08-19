@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import {useContext, useState} from "react";
 import {
     faAdd,
     faImage,
@@ -12,11 +11,14 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { postsColRef, storage } from "../firebase/firebase";
 import { compressImage } from "../utils/compress-image";
-export default function NewPost({ currentUser }) {
+import UserContext from "../contexts/UserContext.jsx";
+export default function NewPost() {
     const [titleText, setTitleText] = useState("");
     const [imgFile, setImgFile] = useState(null);
     const [previewImgUrl, setPreviewImgUrl] = useState("");
     const [isPosting, setIsPosting] = useState(false);
+    const {user: currentUser} = useContext(UserContext);
+
     function post(e) {
         e?.preventDefault();
         setIsPosting(true);

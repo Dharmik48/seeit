@@ -36,7 +36,7 @@ const FormattedSkeleton = ({ count }) => {
     );
 };
 
-export default function Posts({ currentUser, setFlash }) {
+export default function Posts({ setFlash }) {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -56,7 +56,6 @@ export default function Posts({ currentUser, setFlash }) {
         posts.map((post) => (
             <Post
                 data={post}
-                currentUser={currentUser}
                 setFlash={setFlash}
                 key={post.id}
             />

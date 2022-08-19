@@ -1,14 +1,16 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import useFlash from "../../hooks/useFlash.js";
 import {doc, serverTimestamp, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase/firebase.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage, faSpinner, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import FlashMsg from "../FlashMsg";
+import UserContext from "../../contexts/UserContext.jsx";
 
-export default function NewComment({postId, comments, currentUser}) {
+export default function NewComment({postId, comments}) {
     const [commentText, setCommentText] = useState('');
     const [setFlash, flash] = useFlash();
+    const {user: currentUser} = useContext(UserContext);
 
     const addComment = (e) => {
         e.preventDefault();

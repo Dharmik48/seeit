@@ -1,12 +1,13 @@
+import React, {useContext} from "react";
+import UserContext from "../contexts/UserContext.jsx";
+import useFlash from "../hooks/useFlash";
+// FIREBASE
 import { signInWithPopup, signOut } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import React from "react";
-import { useUser } from "../contexts/UserContext";
 import { auth, db, provider } from "../firebase/firebase";
-import useFlash from "../hooks/useFlash";
 
 const Auth = () => {
-    const { user, setUser } = useUser();
+    const {user ,setUser} = useContext(UserContext)
     const [setFlash, flash] = useFlash();
 
     const signInWithGoogle = async () => {

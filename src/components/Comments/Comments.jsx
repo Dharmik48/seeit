@@ -1,7 +1,7 @@
 import NewComment from "./NewComment.jsx";
 import Comment from "./Comment.jsx";
 
-export default function Comments({ comments, currentUser, postId }) {
+export default function Comments({ comments, postId }) {
     const renderComments = () =>
         comments.reverse().map((comment) => <Comment commentData={comment} />);
 
@@ -10,7 +10,6 @@ export default function Comments({ comments, currentUser, postId }) {
             <NewComment
                 postId={postId}
                 comments={comments}
-                currentUser={currentUser}
             />
             {renderComments()}
         </>
