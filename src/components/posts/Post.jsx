@@ -13,17 +13,23 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
 import FlashContext from "../../contexts/FlashContext.jsx";
+import moment from "moment";
 
 export default function Post({ data }) {
     const [isLiked, setIsLiked] = useState(false);
     const [docRef, setDocRef] = useState({});
     const [postOwner, setPostOwner] = useState({});
+    const [createdAt, setCreatedAt] = useState({});
     const {flash} = useContext(FlashContext);
     const {user} = useContext(UserContext);
 
     useEffect(() => {
         setIsLiked(data.likedBy.includes(user?.uid));
     }, [user]);
+
+    useEffect(()=>{
+        setCreatedAt(moment.unix(data.createdAt.seconds).fromNow())
+    })
 
     useEffect(() => {
         setDocRef(doc(db, "posts", data.id));
@@ -116,7 +122,7 @@ export default function Post({ data }) {
                         <span className="font-primary dark:text-primary">
                             {data.comments?.length || 0}
                         </span>
-                    </Link>
+                    </Link>                        
                 </div>
                 {postOwner.uid === user?.uid && (
                     <FontAwesomeIcon
@@ -125,6 +131,11 @@ export default function Post({ data }) {
                         onClick={() => deletePost()}
                     />
                 )}
+                <div>
+                        <span className="font-primary dark:text-primary">
+                            {createdAt}
+                        </span>
+                </div>
             </div>
         </div>
     );
