@@ -3,7 +3,7 @@ import UserContext from "../../contexts/UserContext";
 import FlashContext from "../../contexts/FlashContext.jsx";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 
-export default function NewComment({ postId, commentsColRef }) {
+export default function NewComment({ commentsColRef }) {
   const [commentText, setCommentText] = useState("");
   const { user: currentUser } = useContext(UserContext);
   const { flash } = useContext(FlashContext);
@@ -20,8 +20,9 @@ export default function NewComment({ postId, commentsColRef }) {
       uid: currentUser.uid,
       text: commentText,
       time: serverTimestamp(),
+      likedBy: [],
     };
-
+    console.log(commentsColRef);
     addDoc(commentsColRef, newComment).then(() => {
       setCommentText("");
     });

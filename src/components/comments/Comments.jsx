@@ -10,17 +10,27 @@ export default function Comments({ postId }) {
 
   useEffect(() => {
     onSnapshot(query(commentsColRef, orderBy("time", "desc")), (snapshot) => {
-      const comments = snapshot.docs.map((doc) => doc.data());
+      const comments = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
       setComments(comments);
     });
   }, []);
 
   const renderComments = () =>
-    comments.reverse().map((comment) => <Comment commentData={comment} />);
+    comments?.map((comment) => (
+      <Comment
+        commentData={comment}
+        key={comment.id}
+        commentsColRef={commentsColRef}
+        postId={postId}
+      />
+    ));
 
   return (
     <>
-      <NewComment postId={postId} commentsColRef={commentsColRef} />
+      <NewComment commentsColRef={commentsColRef} />
       {renderComments()}
     </>
   );
