@@ -21,6 +21,5 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const storage = getStorage(app);
 const postsColRef = collection(db, 'posts');
-const usersColRef = collection(db, 'users');
 
-export {db, auth, provider, storage, postsColRef, usersColRef}
+export {db, auth, provider, storage, postsColRef}
