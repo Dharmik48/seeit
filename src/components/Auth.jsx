@@ -1,14 +1,14 @@
 import React, {useContext} from "react";
 import UserContext from "../contexts/UserContext.jsx";
-import useFlash from "../hooks/useFlash";
+import FlashContext from "../contexts/FlashContext.jsx";
 // FIREBASE
 import { signInWithPopup, signOut } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db, provider } from "../firebase/firebase";
 
 const Auth = () => {
-    const {user ,setUser} = useContext(UserContext)
-    const [setFlash, flash] = useFlash();
+    const {user, setUser} = useContext(UserContext);
+    const {flash} = useContext(FlashContext);
 
     const signInWithGoogle = async () => {
         const data = await signInWithPopup(auth, provider);
@@ -16,7 +16,7 @@ const Auth = () => {
         const userRef = doc(db, "users", uid);
 
         setDoc(userRef, { uid, photoURL, email, displayName }).then(() => {
-            setFlash({
+            flash({
                 show: true,
                 msg: "Signed In Successfully",
                 success: true,
@@ -27,8 +27,8 @@ const Auth = () => {
 
     const signUserOut = () => {
         signOut(auth).then(() => {
-            setUser(null);
-            setFlash({
+            setUser({});
+            flash({
                 show: true,
                 msg: "Signed Out Successfully",
                 success: true,

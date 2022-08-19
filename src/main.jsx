@@ -4,13 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { UserProvider } from "./contexts/UserContext";
 import "./index.css";
+import {FlashProvider} from "./contexts/FlashContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <BrowserRouter>
         <UserProvider>
-            <App />
+            <FlashProvider>
+                <App />
+            </FlashProvider>
         </UserProvider>
     </BrowserRouter>
 );

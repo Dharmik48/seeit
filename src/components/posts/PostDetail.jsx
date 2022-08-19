@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 // Components
 import Post from './Post.jsx'
-import Comments from "./Comments/Comments.jsx";
+import Comments from "../comments/Comments.jsx";
 // Firebase
 import {useParams} from "react-router-dom";
 import {doc, getDoc, onSnapshot} from "firebase/firestore";
-import {db} from "../firebase/firebase";
-import NewComment from "./Comments/NewComment";
+import {db} from "../../firebase/firebase.js";
+import NewComment from "../comments/NewComment.jsx";
 
 export default function PostDetail() {
     const {postId} = useParams();

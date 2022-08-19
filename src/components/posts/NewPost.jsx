@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-import { postsColRef, storage } from "../firebase/firebase";
-import { compressImage } from "../utils/compress-image";
-import UserContext from "../contexts/UserContext.jsx";
+import { postsColRef, storage } from "../../firebase/firebase.js";
+import { compressImage } from "../../utils/compress-image.js";
+import UserContext from "../../contexts/UserContext.jsx";
 export default function NewPost() {
     const [titleText, setTitleText] = useState("");
     const [imgFile, setImgFile] = useState(null);

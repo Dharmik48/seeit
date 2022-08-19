@@ -1,9 +1,9 @@
 import {useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import useFlash from "../hooks/useFlash.js";
+import UserContext from "../../contexts/UserContext.jsx";
 // FIREBASE
 import { doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+import { db } from "../../firebase/firebase.js";
 // FONTAWESOME
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,14 +12,13 @@ import {
     faTrashAlt,
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
-import FlashMsg from "./FlashMsg";
-import UserContext from "../contexts/UserContext.jsx";
+import FlashContext from "../../contexts/FlashContext.jsx";
 
 export default function Post({ data }) {
     const [isLiked, setIsLiked] = useState(false);
     const [docRef, setDocRef] = useState({});
     const [postOwner, setPostOwner] = useState({});
-    const [setFlash, flash] = useFlash();
+    const {flash} = useContext(FlashContext);
     const {user} = useContext(UserContext);
 
     useEffect(() => {
@@ -35,8 +34,8 @@ export default function Post({ data }) {
     }, []);
 
     function likePost() {
-        if (!user) {
-            setFlash({
+        if (!user.uid) {
+            flash({
                 show: true,
                 success: false,
                 msg: "Please Sign In first!",
@@ -58,7 +57,7 @@ export default function Post({ data }) {
 
     function deletePost() {
         deleteDoc(docRef).then(() => {
-            setFlash((prevFlash) => ({
+            flash((prevFlash) => ({
                 ...prevFlash,
                 show: true,
                 success: true,
@@ -72,7 +71,6 @@ export default function Post({ data }) {
             className="bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText
 		dark:border-darkText"
         >
-            {flash.show && <FlashMsg flash={flash} setFlash={setFlash} />}
             <div className="p-4 flex flex-col items-start gap-5">
                 <div className="w-full flex items-center gap-2">
                     <img
