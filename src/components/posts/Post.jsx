@@ -19,17 +19,12 @@ export default function Post({ data }) {
     const [isLiked, setIsLiked] = useState(false);
     const [docRef, setDocRef] = useState({});
     const [postOwner, setPostOwner] = useState({});
-    const [createdAt, setCreatedAt] = useState({});
     const {flash} = useContext(FlashContext);
     const {user} = useContext(UserContext);
 
     useEffect(() => {
         setIsLiked(data.likedBy.includes(user?.uid));
     }, [user]);
-
-    useEffect(()=>{
-        setCreatedAt(moment.unix(data.createdAt.seconds).fromNow())
-    })
 
     useEffect(() => {
         setDocRef(doc(db, "posts", data.id));
@@ -133,7 +128,7 @@ export default function Post({ data }) {
                 )}
                 <div>
                         <span className="font-primary dark:text-primary">
-                            {createdAt}
+                            {moment.unix(data.createdAt.seconds).fromNow()}
                         </span>
                 </div>
             </div>
