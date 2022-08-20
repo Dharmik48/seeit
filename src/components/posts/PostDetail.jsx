@@ -25,7 +25,7 @@ export default function PostDetail() {
                         <Post data={{...postData, id: postId}} />
                         <div className='flex flex-col gap-2.5'>
                             <h3>Comments</h3>
-                            <Comments comments={postData.comments} postId={postId} />
+                            <Comments postId={postId} />
                         </div>
                     </>
                 )
