@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
 import FlashContext from "../../contexts/FlashContext.jsx";
+import moment from "moment";
 
 export default function Post({ data }) {
   const [isLiked, setIsLiked] = useState(false);
@@ -121,6 +122,11 @@ export default function Post({ data }) {
             onClick={() => deletePost()}
           />
         )}
+        <div>
+            <span className="font-primary dark:text-primary">
+                {moment.unix(data.createdAt.seconds).fromNow()}
+            </span>
+        </div>
       </div>
     </div>
   );
