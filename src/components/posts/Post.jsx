@@ -34,13 +34,6 @@ export default function Post({ data }) {
   }, [user]);
 
   useEffect(() => {
-    user.uid &&
-      updateDoc(docRef, {
-        likedBy: isLiked ? arrayUnion(user?.uid) : arrayRemove(user?.uid),
-      });
-  }, [isLiked]);
-
-  useEffect(() => {
     setDocRef(doc(db, "posts", data.id));
 
     getDoc(doc(db, "users", data.uid)).then((data) =>
@@ -54,9 +47,14 @@ export default function Post({ data }) {
       return;
     }
 
+    updateDoc(docRef, {
+      likedBy: isLiked ? arrayUnion(user?.uid) : arrayRemove(user?.uid),
+    });
+
     setIsLiked((prevIsLiked) => !prevIsLiked);
   }
 
+  // TODO: delete the image from firebase storage as well
   function deletePost() {
     deleteDoc(docRef).then(() => {
       flash((prevFlash) => ({
@@ -116,6 +114,7 @@ export default function Post({ data }) {
             </span>
           </Link>
         </div>
+        {/* TODO: Fix alignment of trash icon */}
         {postOwner.uid === user?.uid && (
           <FontAwesomeIcon
             icon={faTrashAlt}
@@ -124,9 +123,9 @@ export default function Post({ data }) {
           />
         )}
         <div>
-            <span className="font-primary dark:text-primary">
-                {moment.unix(data.createdAt.seconds).fromNow()}
-            </span>
+          <span className="font-primary dark:text-primary">
+            {data.createdAt && moment.unix(data.createdAt.seconds).fromNow()}
+          </span>
         </div>
       </div>
     </div>
