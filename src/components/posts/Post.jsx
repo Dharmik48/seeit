@@ -2,7 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../contexts/UserContext.jsx";
 // FIREBASE
-import { doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  deleteDoc,
+  getDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "../../firebase/firebase.js";
 // FONTAWESOME
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +33,13 @@ export default function Post({ data }) {
   }, [user]);
 
   useEffect(() => {
+    user.uid &&
+      updateDoc(docRef, {
+        likedBy: isLiked ? arrayUnion(user?.uid) : arrayRemove(user?.uid),
+      });
+  }, [isLiked]);
+
+  useEffect(() => {
     setDocRef(doc(db, "posts", data.id));
 
     getDoc(doc(db, "users", data.uid)).then((data) =>
@@ -33,27 +47,13 @@ export default function Post({ data }) {
     );
   }, []);
 
-  // TODO: refactor the likePost fucntion to use the arrayRemove and arrayUnion
   function likePost() {
     if (!user.uid) {
-      flash({
-        show: true,
-        success: false,
-        msg: "Please Sign In first!",
-      });
+      flash({ show: true, success: false, msg: "Please Sign In first!" });
       return;
     }
 
-    let newIsLikedBy;
-    !isLiked
-      ? (newIsLikedBy = [...data.likedBy, user?.uid])
-      : (newIsLikedBy = data.likedBy.filter((u) => u !== user?.uid));
-
     setIsLiked((prevIsLiked) => !prevIsLiked);
-
-    updateDoc(docRef, {
-      likedBy: newIsLikedBy,
-    });
   }
 
   function deletePost() {
