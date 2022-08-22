@@ -84,6 +84,9 @@ export default function Post({ data }) {
           <h1 className="w-full text-sm dark:text-primary">
             {postOwner.displayName}
           </h1>
+          <span className="min-w-max font-primary text-sm dark:text-primary">
+            {data.createdAt && moment.unix(data.createdAt.seconds).fromNow()}
+          </span>
         </div>
         <h1 className="dark:text-primary">{data.title}</h1>
         <img src={data.img} className="mx-auto" alt={data.title} />
@@ -114,7 +117,6 @@ export default function Post({ data }) {
             </span>
           </Link>
         </div>
-        {/* TODO: Fix alignment of trash icon */}
         {postOwner.uid === user?.uid && (
           <FontAwesomeIcon
             icon={faTrashAlt}
@@ -122,11 +124,6 @@ export default function Post({ data }) {
             onClick={() => deletePost()}
           />
         )}
-        <div>
-          <span className="font-primary dark:text-primary">
-            {data.createdAt && moment.unix(data.createdAt.seconds).fromNow()}
-          </span>
-        </div>
       </div>
     </div>
   );
