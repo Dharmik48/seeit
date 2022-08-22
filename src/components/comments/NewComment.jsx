@@ -22,7 +22,6 @@ export default function NewComment({ commentsColRef }) {
       time: serverTimestamp(),
       likedBy: [],
     };
-    console.log(commentsColRef);
     addDoc(commentsColRef, newComment).then(() => {
       setCommentText("");
     });

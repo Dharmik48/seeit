@@ -45,6 +45,7 @@ export default function Posts({ setFlash }) {
         ...doc.data(),
         id: doc.id,
       }));
+      console.log(data);
       setPosts(data);
     });
   }, []);

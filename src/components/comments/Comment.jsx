@@ -27,7 +27,7 @@ export default function Comment({commentData, commentsColRef, postId}) {
 
   useEffect(() => {
     setIsLiked(commentData.likedBy?.includes(user?.uid));
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     user.uid &&

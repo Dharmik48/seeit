@@ -47,11 +47,11 @@ export default function Post({ data }) {
       return;
     }
 
-    updateDoc(docRef, {
-      likedBy: isLiked ? arrayUnion(user?.uid) : arrayRemove(user?.uid),
-    });
-
     setIsLiked((prevIsLiked) => !prevIsLiked);
+
+    updateDoc(docRef, {
+      likedBy: !isLiked ? arrayUnion(user?.uid) : arrayRemove(user?.uid),
+    });
   }
 
   // TODO: delete the image from firebase storage as well
