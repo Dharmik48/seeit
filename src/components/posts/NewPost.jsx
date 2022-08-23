@@ -39,6 +39,7 @@ export default function NewPost() {
         createdAt: serverTimestamp(),
         likedBy: [],
         uid: currentUser.uid,
+        noOfComments: 0,
       }).then(() => {
         setTitleText("");
         setImgFile(null);

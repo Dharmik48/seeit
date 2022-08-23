@@ -20,17 +20,12 @@ export default function Comments({ postId }) {
 
   const renderComments = () =>
     comments?.map((comment) => (
-      <Comment
-        commentData={comment}
-        key={comment.id}
-        commentsColRef={commentsColRef}
-        postId={postId}
-      />
+      <Comment commentData={comment} key={comment.id} postId={postId} />
     ));
 
   return (
     <>
-      <NewComment commentsColRef={commentsColRef} />
+      <NewComment commentsColRef={commentsColRef} postId={postId} />
       {renderComments()}
     </>
   );

@@ -111,9 +111,8 @@ export default function Post({ data }) {
               icon={faMessage}
               className="cursor-pointer dark:text-primary"
             />
-            {/* TODO: fix the comments length bug */}
             <span className="font-primary dark:text-primary">
-              {data.comments?.length || 0}
+              {data.noOfComments || 0}
             </span>
           </Link>
         </div>
