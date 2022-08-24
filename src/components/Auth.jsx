@@ -9,7 +9,7 @@ import { auth, db, provider } from "../firebase/firebase";
 const Auth = () => {
   const { user, setUser } = useContext(UserContext);
   const { flash } = useContext(FlashContext);
-  // TODO: save user in cache
+
   const signInWithGoogle = async () => {
     const data = await signInWithPopup(auth, provider);
     const { uid, photoURL, email, displayName } = data.user;
