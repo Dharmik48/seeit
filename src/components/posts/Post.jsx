@@ -22,7 +22,7 @@ import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
 import FlashContext from "../../contexts/FlashContext.jsx";
 import moment from "moment";
 
-export default function Post({ data }) {
+export default function Post({ data, imgUrl }) {
   const [isLiked, setIsLiked] = useState(false);
   const [docRef, setDocRef] = useState({});
   const [postOwner, setPostOwner] = useState({});
@@ -89,7 +89,7 @@ export default function Post({ data }) {
           </span>
         </div>
         <h1 className="dark:text-primary">{data.title}</h1>
-        <img src={data.img} className="mx-auto" alt={data.title} />
+        <img src={imgUrl} className="mx-auto" alt={data.title} />
       </div>
       <div className="flex items-center justify-between px-4 py-2 rounded-lg gap-1 dark:bg-darkText">
         <div className="flex items-center gap-2">

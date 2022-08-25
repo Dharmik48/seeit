@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import {
-  faAdd,
   faImage,
   faSpinner,
   faTimesCircle,
@@ -25,17 +24,15 @@ export default function NewPost() {
     setIsPosting(true);
 
     if (!imgFile) return;
+    const imageId = v4();
 
-    const image = imgFile;
+    const imgRef = ref(storage, `images/${imageId}`);
+    // const url = await getDownloadURL(imgRef);
 
-    // console.log(`img size after ${image.size / 1024 / 1024} MB`);
-    const imgRef = ref(storage, `images/${v4()}`);
-
-    uploadBytes(imgRef, image).then(async () => {
-      const url = await getDownloadURL(imgRef);
+    uploadBytes(imgRef, imgFile).then(async () => {
       addDoc(postsColRef, {
         title: titleText,
-        img: url,
+        img: imageId,
         createdAt: serverTimestamp(),
         likedBy: [],
         uid: currentUser.uid,
