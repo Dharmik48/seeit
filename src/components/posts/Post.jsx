@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext.jsx";
 import FlashContext from "../../contexts/FlashContext.jsx";
 // FIREBASE
@@ -29,6 +29,7 @@ export default function Post({ data }) {
   const [postOwner, setPostOwner] = useState({});
   const { flash } = useContext(FlashContext);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLiked(data.likedBy.includes(user?.uid));
@@ -56,11 +57,11 @@ export default function Post({ data }) {
   }
 
   function deletePost() {
+    navigate("/");
     const imgId = data.img.split("%2F")[1].split("?")[0];
     deleteDoc(docRef)
       .then(() => deleteObject(ref(storage, `images/${imgId}`)))
       .then(() => {
-        Redirect;
         flash((prevFlash) => ({
           ...prevFlash,
           show: true,
