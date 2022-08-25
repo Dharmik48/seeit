@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../contexts/UserContext.jsx";
+import FlashContext from "../../contexts/FlashContext.jsx";
 // FIREBASE
 import {
   doc,
@@ -10,7 +11,8 @@ import {
   arrayUnion,
   arrayRemove,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase.js";
+import { db, storage } from "../../firebase/firebase.js";
+import { ref, deleteObject } from "firebase/storage";
 // FONTAWESOME
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +21,6 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
-import FlashContext from "../../contexts/FlashContext.jsx";
 import moment from "moment";
 
 export default function Post({ data }) {
@@ -56,14 +57,18 @@ export default function Post({ data }) {
 
   // TODO: delete the image from firebase storage as well
   function deletePost() {
-    deleteDoc(docRef).then(() => {
-      flash((prevFlash) => ({
-        ...prevFlash,
-        show: true,
-        success: true,
-        msg: "Post deleted",
-      }));
-    });
+    const imgId = data.img.split("%2F")[1].split("?")[0];
+    deleteDoc(docRef)
+      .then(() => deleteObject(ref(storage, `images/${imgId}`)))
+      .then(() => {
+        Redirect;
+        flash((prevFlash) => ({
+          ...prevFlash,
+          show: true,
+          success: true,
+          msg: "Post deleted",
+        }));
+      });
   }
 
   return (

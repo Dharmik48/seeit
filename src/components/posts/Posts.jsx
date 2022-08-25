@@ -3,7 +3,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Post from "./Post.jsx";
 import { useEffect, useState } from "react";
 import { onSnapshot, orderBy, query } from "firebase/firestore";
-import { postsColRef } from "../../firebase/firebase.js";
+import { postsColRef, storage } from "../../firebase/firebase.js";
+import { getDownloadURL, ref } from "firebase/storage";
 
 const FormattedSkeleton = ({ count }) => {
   const color = "#87888a";
@@ -50,7 +51,7 @@ export default function Posts({ setFlash }) {
   }, []);
 
   const renderPosts = () =>
-    posts.map((post) => <Post data={post} setFlash={setFlash} key={post.id} />);
+    posts.map((post) => <Post data={post} key={post.id} />);
 
   return (
     <section className="grid gap-5 font-light mt-5 lg:mt-10 dark:bg-darkText">
