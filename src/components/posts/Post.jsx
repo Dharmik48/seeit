@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../contexts/UserContext.jsx";
+import FlashContext from "../../contexts/FlashContext.jsx";
 // FIREBASE
 import {
   doc,
@@ -10,7 +11,8 @@ import {
   arrayUnion,
   arrayRemove,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase.js";
+import { db, storage } from "../../firebase/firebase.js";
+import { ref, deleteObject } from "firebase/storage";
 // FONTAWESOME
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,10 +21,9 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
-import FlashContext from "../../contexts/FlashContext.jsx";
 import moment from "moment";
 
-export default function Post({ data, imgUrl }) {
+export default function Post({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const [docRef, setDocRef] = useState({});
   const [postOwner, setPostOwner] = useState({});
@@ -56,14 +57,18 @@ export default function Post({ data, imgUrl }) {
 
   // TODO: delete the image from firebase storage as well
   function deletePost() {
-    deleteDoc(docRef).then(() => {
-      flash((prevFlash) => ({
-        ...prevFlash,
-        show: true,
-        success: true,
-        msg: "Post deleted",
-      }));
-    });
+    const imgId = data.img.split("%2F")[1].split("?")[0];
+    deleteDoc(docRef)
+      .then(() => deleteObject(ref(storage, `images/${imgId}`)))
+      .then(() => {
+        Redirect;
+        flash((prevFlash) => ({
+          ...prevFlash,
+          show: true,
+          success: true,
+          msg: "Post deleted",
+        }));
+      });
   }
 
   return (
@@ -89,7 +94,7 @@ export default function Post({ data, imgUrl }) {
           </span>
         </div>
         <h1 className="dark:text-primary">{data.title}</h1>
-        <img src={imgUrl} className="mx-auto" alt={data.title} />
+        <img src={data.img} className="mx-auto" alt={data.title} />
       </div>
       <div className="flex items-center justify-between px-4 py-2 rounded-lg gap-1 dark:bg-darkText">
         <div className="flex items-center gap-2">

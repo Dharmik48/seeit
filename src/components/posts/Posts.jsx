@@ -3,7 +3,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Post from "./Post.jsx";
 import { useEffect, useState } from "react";
 import { onSnapshot, orderBy, query } from "firebase/firestore";
-import { postsColRef } from "../../firebase/firebase.js";
+import { postsColRef, storage } from "../../firebase/firebase.js";
+import { getDownloadURL, ref } from "firebase/storage";
 
 const FormattedSkeleton = ({ count }) => {
   const color = "#87888a";
