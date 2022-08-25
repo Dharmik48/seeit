@@ -55,7 +55,6 @@ export default function Post({ data }) {
     });
   }
 
-  // TODO: delete the image from firebase storage as well
   function deletePost() {
     const imgId = data.img.split("%2F")[1].split("?")[0];
     deleteDoc(docRef)
