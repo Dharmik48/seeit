@@ -77,7 +77,7 @@ export default function Post({ data }) {
     >
       <div className="p-4 flex flex-col items-start gap-5">
         <Link
-          to={`users/${data.uid}`}
+          to={`/users/${data.uid}`}
           className="w-full flex items-center gap-2"
         >
           <img
