@@ -6,18 +6,24 @@ import {
   updateDoc,
   arrayRemove,
   arrayUnion,
+  deleteDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase.js";
+import { db, storage } from "../../firebase/firebase.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as heartOutline } from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart as heartOutline,
+  faTrashAlt,
+} from "@fortawesome/free-regular-svg-icons";
 import FlashContext from "../../contexts/FlashContext.jsx";
+import { deleteObject, ref } from "firebase/storage";
 
 export default function Comment({ commentData, postId }) {
   const [commentBy, setCommentBy] = useState({});
   const [isLiked, setIsLiked] = useState(false);
   const { user } = useContext(UserContext);
   const { flash } = useContext(FlashContext);
+  const commentDocRef = doc(db, `posts/${postId}/comments`, commentData.id);
 
   useEffect(() => {
     getDoc(doc(db, "users", commentData.uid)).then((userData) =>
@@ -31,7 +37,7 @@ export default function Comment({ commentData, postId }) {
 
   useEffect(() => {
     user.uid &&
-      updateDoc(doc(db, `posts/${postId}/comments`, commentData.id), {
+      updateDoc(commentDocRef, {
         likedBy: isLiked ? arrayUnion(user?.uid) : arrayRemove(user?.uid),
       });
   }, [isLiked]);
@@ -43,6 +49,16 @@ export default function Comment({ commentData, postId }) {
     }
     setIsLiked((prevIsLiked) => !prevIsLiked);
   };
+
+  function deleteComment() {
+    deleteDoc(commentDocRef).then(() => {
+      flash({
+        show: true,
+        success: true,
+        msg: "Comment deleted",
+      });
+    });
+  }
 
   return (
     <div
@@ -63,18 +79,27 @@ export default function Comment({ commentData, postId }) {
         </h1>
       </div>
       <p>{commentData.text}</p>
-      <div className="flex items-center gap-1">
-        <FontAwesomeIcon
-          icon={isLiked ? heartFilled : heartOutline}
-          className={`cursor-pointer transition-colors dark:text-primary ${
-            isLiked ? "text-brightRed" : "hover:text-lightRed"
-          }`}
-          size="lg"
-          onClick={likeComment}
-        />
-        <span className="font-primary dark:text-primary">
-          {commentData.likedBy?.length || 0}
-        </span>
+      <div className="flex items-center justify-between">
+        <div className={"flex items-center gap-1"}>
+          <FontAwesomeIcon
+            icon={isLiked ? heartFilled : heartOutline}
+            className={`cursor-pointer transition-colors dark:text-primary ${
+              isLiked ? "text-brightRed" : "hover:text-lightRed"
+            }`}
+            size="lg"
+            onClick={likeComment}
+          />
+          <span className="font-primary dark:text-primary">
+            {commentData.likedBy?.length || 0}
+          </span>
+        </div>
+        {commentData.uid === user?.uid && (
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            className="cursor-pointer dark:text-primary"
+            onClick={() => deleteComment()}
+          />
+        )}
       </div>
     </div>
   );
