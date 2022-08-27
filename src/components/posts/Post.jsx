@@ -76,7 +76,10 @@ export default function Post({ data }) {
 		dark:border-darkText"
     >
       <div className="p-4 flex flex-col items-start gap-5">
-        <div className="w-full flex items-center gap-2">
+        <Link
+          to={`users/${data.uid}`}
+          className="w-full flex items-center gap-2"
+        >
           <img
             src={postOwner.photoURL}
             alt={postOwner.displayName || "unknown"}
@@ -91,7 +94,7 @@ export default function Post({ data }) {
           <span className="min-w-max font-primary text-sm dark:text-primary">
             {data.createdAt && moment.unix(data.createdAt.seconds).fromNow()}
           </span>
-        </div>
+        </Link>
         <h1 className="dark:text-primary">{data.title}</h1>
         <img src={data.img} className="mx-auto" alt={data.title} />
       </div>
