@@ -62,12 +62,11 @@ export default function Post({ data }) {
     deleteDoc(docRef)
       .then(() => deleteObject(ref(storage, `images/${imgId}`)))
       .then(() => {
-        flash((prevFlash) => ({
-          ...prevFlash,
+        flash({
           show: true,
           success: true,
           msg: "Post deleted",
-        }));
+        });
       });
   }
 
