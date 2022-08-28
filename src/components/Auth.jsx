@@ -3,7 +3,7 @@ import UserContext from "../contexts/UserContext.jsx";
 import FlashContext from "../contexts/FlashContext.jsx";
 // FIREBASE
 import { signInWithPopup, signOut } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, provider } from "../firebase/firebase";
 import { Link } from "react-router-dom";
 
@@ -15,14 +15,24 @@ const Auth = () => {
     const data = await signInWithPopup(auth, provider);
     const { uid, photoURL, email, displayName } = data.user;
     const userRef = doc(db, "users", uid);
-
-    setDoc(userRef, { uid, photoURL, email, displayName }).then(() => {
-      flash({
-        show: true,
-        msg: "Signed In Successfully",
-        success: true,
+    getDoc(userRef)
+      .then((userDoc) => {
+        if (userDoc.exists()) return;
+        return setDoc(userRef, {
+          uid,
+          photoURL,
+          email,
+          displayName,
+          posts: [],
+        });
+      })
+      .then(() => {
+        flash({
+          show: true,
+          msg: "Signed In Successfully",
+          success: true,
+        });
       });
-    });
     setUser({ uid, photoURL, email, displayName });
   };
 
