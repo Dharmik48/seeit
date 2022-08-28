@@ -5,10 +5,16 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-import { postsColRef, storage } from "../../firebase/firebase.js";
+import { db, postsColRef, storage } from "../../firebase/firebase.js";
 import { compressImage } from "../../utils/compress-image.js";
 import UserContext from "../../contexts/UserContext.jsx";
 
@@ -37,12 +43,19 @@ export default function NewPost() {
         likedBy: [],
         uid: currentUser.uid,
         noOfComments: 0,
-      }).then(() => {
-        setTitleText("");
-        setImgFile(null);
-        setPreviewImgUrl("");
-        setIsPosting(false);
-      });
+      })
+        .then((docRef) => {
+          updateDoc(doc(db, `users/${currentUser.uid}`), {
+            posts: arrayUnion(`/posts/${docRef.id}`),
+          });
+          console.log(docRef);
+        })
+        .then(() => {
+          setTitleText("");
+          setImgFile(null);
+          setPreviewImgUrl("");
+          setIsPosting(false);
+        });
     });
   }
 
