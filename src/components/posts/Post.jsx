@@ -25,19 +25,17 @@ import moment from "moment";
 
 export default function Post({ data }) {
   const [isLiked, setIsLiked] = useState(false);
-  const [docRef, setDocRef] = useState({});
   const [postOwner, setPostOwner] = useState({});
   const { flash } = useContext(FlashContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const docRef = doc(db, "posts", data.id);
 
   useEffect(() => {
     setIsLiked(data.likedBy.includes(user?.uid));
   }, [user]);
 
   useEffect(() => {
-    setDocRef(doc(db, "posts", data.id));
-
     getDoc(doc(db, "users", data.uid)).then((data) =>
       setPostOwner(data.data())
     );
@@ -61,6 +59,11 @@ export default function Post({ data }) {
     const imgId = data.img.split("%2F")[1].split("?")[0];
     deleteDoc(docRef)
       .then(() => deleteObject(ref(storage, `images/${imgId}`)))
+      .then(() => {
+        return updateDoc(doc(db, `users/${postOwner.uid}`), {
+          posts: arrayRemove(`/posts/${docRef.id}`),
+        });
+      })
       .then(() => {
         flash({
           show: true,
