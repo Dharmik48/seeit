@@ -1,10 +1,12 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Post from "./Post.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { onSnapshot, orderBy, query } from "firebase/firestore";
-import { postsColRef, storage } from "../../firebase/firebase.js";
-import { getDownloadURL, ref } from "firebase/storage";
+import { postsColRef } from "../../firebase/firebase.js";
+import NewPost from "./NewPost.jsx";
+import UserContext from "../../contexts/UserContext.jsx";
+import userContext from "../../contexts/UserContext.jsx";
 
 const FormattedSkeleton = ({ count }) => {
   const color = "#87888a";
@@ -39,6 +41,7 @@ const FormattedSkeleton = ({ count }) => {
 
 export default function Posts({ setFlash }) {
   const [posts, setPosts] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     onSnapshot(query(postsColRef, orderBy("createdAt", "desc")), (snapshot) => {
@@ -54,7 +57,9 @@ export default function Posts({ setFlash }) {
     posts.map((post) => <Post data={post} key={post.id} />);
 
   return (
-    <section className="grid gap-5 font-light mt-5 lg:mt-10 dark:bg-darkText">
+    <section className="grid gap-5 font-light dark:bg-darkText">
+      {user && user.email && <NewPost />}
+
       {posts && posts.length > 0 ? (
         renderPosts()
       ) : (

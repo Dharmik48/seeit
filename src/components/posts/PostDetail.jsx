@@ -21,7 +21,7 @@ export default function PostDetail() {
   }, []);
 
   return (
-    <section className="grid gap-10 mt-5 lg:mt-10">
+    <section className="grid gap-10">
       {Object.keys(postData).length > 0 && (
         <>
           <Post data={postData} />

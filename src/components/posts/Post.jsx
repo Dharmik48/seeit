@@ -25,19 +25,17 @@ import moment from "moment";
 
 export default function Post({ data }) {
   const [isLiked, setIsLiked] = useState(false);
-  const [docRef, setDocRef] = useState({});
   const [postOwner, setPostOwner] = useState({});
   const { flash } = useContext(FlashContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const docRef = doc(db, "posts", data.id);
 
   useEffect(() => {
     setIsLiked(data.likedBy.includes(user?.uid));
   }, [user]);
 
   useEffect(() => {
-    setDocRef(doc(db, "posts", data.id));
-
     getDoc(doc(db, "users", data.uid)).then((data) =>
       setPostOwner(data.data())
     );
@@ -62,6 +60,11 @@ export default function Post({ data }) {
     deleteDoc(docRef)
       .then(() => deleteObject(ref(storage, `images/${imgId}`)))
       .then(() => {
+        return updateDoc(doc(db, `users/${postOwner.uid}`), {
+          posts: arrayRemove(`/posts/${docRef.id}`),
+        });
+      })
+      .then(() => {
         flash({
           show: true,
           success: true,
@@ -76,7 +79,10 @@ export default function Post({ data }) {
 		dark:border-darkText"
     >
       <div className="p-4 flex flex-col items-start gap-5">
-        <div className="w-full flex items-center gap-2">
+        <Link
+          to={`/users/${data.uid}`}
+          className="w-full flex items-center gap-2"
+        >
           <img
             src={postOwner.photoURL}
             alt={postOwner.displayName || "unknown"}
@@ -91,7 +97,7 @@ export default function Post({ data }) {
           <span className="min-w-max font-primary text-sm dark:text-primary">
             {data.createdAt && moment.unix(data.createdAt.seconds).fromNow()}
           </span>
-        </div>
+        </Link>
         <h1 className="dark:text-primary">{data.title}</h1>
         <img src={data.img} className="mx-auto" alt={data.title} />
       </div>
