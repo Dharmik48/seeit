@@ -5,6 +5,7 @@ import FlashContext from "../contexts/FlashContext.jsx";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db, provider } from "../firebase/firebase";
+import { Link } from "react-router-dom";
 
 const Auth = () => {
   const { user, setUser } = useContext(UserContext);
@@ -38,7 +39,7 @@ const Auth = () => {
 
   return (
     <>
-      {!user?.email ? (
+      {!user?.uid ? (
         <button
           onClick={signInWithGoogle}
           className="border border-darkText rounded-full py-1.5 px-4 hover:bg-darkText hover:text-primary transition-colors focus:bg-darkText focus:text-primary focus:outline-none dark:text-primary dark:bg-darkText
@@ -54,14 +55,16 @@ const Auth = () => {
           >
             Sign&nbsp;out
           </p>
-          <img
-            src={user.photoURL}
-            className="max-h-8 lg:max-h-10 rounded-full"
-            alt={user.displayName}
-            onError={(e) => {
-              e.target.src = `https://avatars.dicebear.com/api/identicon/${user.uid}.svg`;
-            }}
-          />
+          <Link to={`/users/${user.uid}`}>
+            <img
+              src={user.photoURL}
+              className="max-h-8 lg:max-h-10 rounded-full"
+              alt={user.displayName}
+              onError={(e) => {
+                e.target.src = `https://avatars.dicebear.com/api/identicon/${user.uid}.svg`;
+              }}
+            />
+          </Link>
         </div>
       )}
     </>
