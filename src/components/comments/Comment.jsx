@@ -7,8 +7,9 @@ import {
   arrayRemove,
   arrayUnion,
   deleteDoc,
+  increment,
 } from "firebase/firestore";
-import { db, storage } from "../../firebase/firebase.js";
+import { db } from "../../firebase/firebase.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -16,7 +17,6 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-regular-svg-icons";
 import FlashContext from "../../contexts/FlashContext.jsx";
-import { deleteObject, ref } from "firebase/storage";
 
 export default function Comment({ commentData, postId }) {
   const [commentBy, setCommentBy] = useState({});
@@ -51,13 +51,19 @@ export default function Comment({ commentData, postId }) {
   };
 
   function deleteComment() {
-    deleteDoc(commentDocRef).then(() => {
-      flash({
-        show: true,
-        success: true,
-        msg: "Comment deleted",
+    deleteDoc(commentDocRef)
+      .then(() => {
+        return updateDoc(doc(db, "/posts", postId), {
+          noOfComments: increment(-1),
+        });
+      })
+      .then(() => {
+        flash({
+          show: true,
+          success: true,
+          msg: "Comment deleted",
+        });
       });
-    });
   }
 
   return (
