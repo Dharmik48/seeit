@@ -55,25 +55,18 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-<h4>Before Signed Up</h4>
-
-[![SeeIt Home][product-screenshot-nav-not-signed]](https://seeit-brown.vercel.app/)
-
-<h4>Logged</h4>
-
-[![SeeIt Home][product-screenshot-signed]](https://seeit-brown.vercel.app/)
 
 <h4>Dark Mode Activated</h4>
 
 [![SeeIt Home][product-screenshot-dark]](https://seeit-brown.vercel.app/)
 
-<h4>Check All Posts</h4>
+<h4>All Posts</h4>
 
 [![SeeIt Home][product-screenshot-posts]](https://seeit-brown.vercel.app/)
 
-<h4>Check only My Posts</h4>
+<h4>User Profile</h4>
 
-[![SeeIt Home][product-screenshot-myPost]](https://seeit-brown.vercel.app/)
+[![SeeIt Home][product-screenshot-user-profile]](https://seeit-brown.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -169,11 +162,10 @@ Thanks a lot for spending your time helping SeeIt grow. Thanks a lot! Keep rocki
 [license-url]: https://github.com/Dharmik48/seeit/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot-signed]: src/imgs/signed.png
-[product-screenshot-nav-not-signed]: src/imgs/notSigned.png
 [product-screenshot-dark]: src/imgs/darkMode.png
-[product-screenshot-posts]: src/imgs/myPost.png
-[product-screenshot-myPost]: src/imgs/posts.png
+[product-screenshot-posts]: src/imgs/posts.png
+[product-screenshot-user-profile]: src/imgs/userProfile.png
+[product-screenshot-dark]: src/imgs/darkMode.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [TailwindCSS-url]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
