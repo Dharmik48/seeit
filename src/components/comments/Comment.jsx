@@ -71,7 +71,7 @@ export default function Comment({ commentData, postId }) {
       className="grid gap-2.5 bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg
     dark:bg-darkText dark:border-gray dark:text-primary"
     >
-      <div className="w-full flex items-center gap-2">
+      <div id="comment" className="w-full flex items-center gap-2">
         <img
           src={commentBy.photoURL}
           alt={commentBy.displayName || "unknown"}

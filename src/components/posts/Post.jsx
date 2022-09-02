@@ -1,26 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import UserContext from "../../contexts/UserContext.jsx";
+import { HashLink } from 'react-router-hash-link';
 import FlashContext from "../../contexts/FlashContext.jsx";
+import UserContext from "../../contexts/UserContext.jsx";
 // FIREBASE
 import {
-  doc,
-  updateDoc,
-  deleteDoc,
-  getDoc,
-  arrayUnion,
-  arrayRemove,
+    arrayRemove, arrayUnion, deleteDoc, doc, getDoc, updateDoc
 } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 import { db, storage } from "../../firebase/firebase.js";
-import { ref, deleteObject } from "firebase/storage";
 // FONTAWESOME
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeart as heartOutline,
-  faMessage,
-  faTrashAlt,
+    faHeart as heartOutline,
+    faMessage,
+    faTrashAlt
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartFilled } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 
 export default function Post({ data }) {
@@ -118,7 +114,7 @@ export default function Post({ data }) {
               {data.likedBy.length}
             </span>
           </div>
-          <Link to={`/posts/${data.id}`} className="flex items-center gap-1">
+          <HashLink smooth to={`/posts/${data.id}#comment`} className="flex items-center gap-1">
             <FontAwesomeIcon
               icon={faMessage}
               className="cursor-pointer dark:text-primary"
@@ -126,7 +122,7 @@ export default function Post({ data }) {
             <span className="font-primary dark:text-primary">
               {data.noOfComments || 0}
             </span>
-          </Link>
+          </HashLink>
         </div>
         {postOwner.uid === user?.uid && (
           <FontAwesomeIcon
