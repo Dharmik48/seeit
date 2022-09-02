@@ -76,7 +76,7 @@ export default function Post({ data }) {
   return (
     <div
       className="bg-[#fff] border border-[#ccc] rounded-lg shadow-lg dark:bg-darkText
-		dark:border-darkText"
+		dark:border-gray"
     >
       <div className="p-4 flex flex-col items-start gap-5">
         <Link
@@ -106,8 +106,10 @@ export default function Post({ data }) {
           <div className="flex items-center gap-1">
             <FontAwesomeIcon
               icon={isLiked ? heartFilled : heartOutline}
-              className={`cursor-pointer transition-colors dark:text-primary ${
-                isLiked ? "text-brightRed" : "hover:text-lightRed"
+              className={`cursor-pointer transition-colors ${
+                isLiked
+                  ? "text-brightRed"
+                  : "hover:text-lightRed dark:text-primary"
               }`}
               size="lg"
               onClick={likePost}

@@ -41,17 +41,17 @@ export default function NewComment({ commentsColRef, postId }) {
   return (
     <form
       className="grid gap-2.5 bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg
-    dark:bg-darkText dark:border-primary dark:text-primary"
+    dark:bg-darkText dark:border-gray dark:text-primary"
     >
       <textarea
         placeholder="Write a comment"
         value={commentText}
         className="w-full bg-primary h-full p-2 lg:p-4 border-2 border-secondary focus:outline-none
-                        dark:bg-darkText dark:border-[#ccc] dark:text-primary rounded-lg"
+                        dark:bg-darkText dark:border-gray dark:text-primary rounded-lg"
         onChange={(e) => setCommentText(e.target.value)}
       />
       <button
-        className="border-2 border-secondary py-2 px-6 rounded-full justify-self-end transition-colors hover:bg-secondary"
+        className="border-2 border-secondary py-2 px-6 rounded-full justify-self-end transition-colors hover:bg-secondary dark:hover:bg-gray dark:border-gray"
         onClick={addComment}
       >
         Submit

@@ -26,7 +26,7 @@ export default function PostDetail() {
         <>
           <Post data={postData} />
           <div className="flex flex-col gap-2.5">
-            <h3>Comments</h3>
+            <h3 className={"text-darkText dark:text-primary"}>Comments</h3>
             <Comments postId={postId} />
           </div>
         </>

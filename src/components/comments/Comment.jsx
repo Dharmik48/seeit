@@ -69,7 +69,7 @@ export default function Comment({ commentData, postId }) {
   return (
     <div
       className="grid gap-2.5 bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg
-    dark:bg-darkText dark:border-primary dark:text-primary"
+    dark:bg-darkText dark:border-gray dark:text-primary"
     >
       <div className="w-full flex items-center gap-2">
         <img
@@ -89,7 +89,7 @@ export default function Comment({ commentData, postId }) {
         <div className={"flex items-center gap-1"}>
           <FontAwesomeIcon
             icon={isLiked ? heartFilled : heartOutline}
-            className={`cursor-pointer transition-colors dark:text-primary ${
+            className={`cursor-pointer transition-colors ${
               isLiked ? "text-brightRed" : "hover:text-lightRed"
             }`}
             size="lg"
