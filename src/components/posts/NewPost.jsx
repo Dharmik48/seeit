@@ -17,6 +17,7 @@ import { v4 } from "uuid";
 import { db, postsColRef, storage } from "../../firebase/firebase.js";
 import { compressImage } from "../../utils/compress-image.js";
 import UserContext from "../../contexts/UserContext.jsx";
+import FlashContext from "../../contexts/FlashContext.jsx";
 
 export default function NewPost() {
   const [titleText, setTitleText] = useState("");
@@ -24,12 +25,28 @@ export default function NewPost() {
   const [previewImgUrl, setPreviewImgUrl] = useState("");
   const [isPosting, setIsPosting] = useState(false);
   const { user: currentUser } = useContext(UserContext);
+  const { flash: flash } = useContext(FlashContext);
 
   function post(e) {
     e?.preventDefault();
-    setIsPosting(true);
 
-    if (!imgFile) return;
+    if (!imgFile) {
+      flash({
+        msg: "Please upload a photo first!",
+        success: false,
+        show: true,
+      });
+      return;
+    }
+    if (!titleText) {
+      flash({
+        msg: "Please write a title first!",
+        success: false,
+        show: true,
+      });
+      return;
+    }
+    setIsPosting(true);
 
     const imageId = v4();
     const imgRef = ref(storage, `images/${imageId}`);
@@ -48,7 +65,6 @@ export default function NewPost() {
           updateDoc(doc(db, `users/${currentUser.uid}`), {
             posts: arrayUnion(`/posts/${docRef.id}`),
           });
-          console.log(docRef);
         })
         .then(() => {
           setTitleText("");
@@ -75,7 +91,7 @@ export default function NewPost() {
       className={`grid bg-primary border border-[#ccc] p-3 rounded-lg shadow-lg 
     dark:bg-darkText dark:border-gray dark:text-primary`}
     >
-      <form onSubmit={(e) => post(e)}>
+      <form onSubmit={post}>
         <div className="flex items-center border-2 border-secondary rounded-lg dark:border-gray dark:bg-darkText dark:text-darkText">
           <input
             type="text"
@@ -84,6 +100,7 @@ export default function NewPost() {
             className="w-full bg-primary h-full p-2 lg:p-4 border-r-2 border-secondary focus:outline-none
 							dark:bg-darkText dark:border-gray dark:text-primary rounded-l-lg"
             onChange={(e) => setTitleText(e.target.value)}
+            // required
           />
           <label
             htmlFor="imageUploadBtn"
