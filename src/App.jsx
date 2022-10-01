@@ -29,8 +29,7 @@ function App() {
     <main className="w-full min-h-screen py-5 bg-secondary px-5 font-primary dark:bg-darkText">
       {flashData?.show && <FlashMsg />}
       <Header />
-      <section className="max-w-xl mx-auto grid relative">
-        <ThemeToggle />
+      <section className="max-w-xl my-5 mx-auto grid relative">
         <Routes>
           <Route exact path="/" element={<Posts />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
