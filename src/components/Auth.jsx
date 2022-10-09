@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import UserContext from "../contexts/UserContext.jsx";
 import FlashContext from "../contexts/FlashContext.jsx";
 // FIREBASE
@@ -6,10 +6,12 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, provider } from "../firebase/firebase";
 import { Link } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
 
 const Auth = () => {
   const { user, setUser } = useContext(UserContext);
   const { flash } = useContext(FlashContext);
+  const [show, setShow] = useState(false);
 
   const signInWithGoogle = async () => {
     const data = await signInWithPopup(auth, provider);
@@ -58,23 +60,25 @@ const Auth = () => {
           Sign In
         </button>
       ) : (
-        <div className="flex items-center gap-3.5 lg:gap-5">
-          <p
-            className="w-max cursor-pointer dark:text-primary"
-            onClick={signUserOut}
-          >
-            Sign&nbsp;out
-          </p>
-          <Link to={`/users/${user.uid}`}>
-            <img
-              src={user.photoURL}
-              className="max-h-8 lg:max-h-10 rounded-full"
-              alt={user.displayName}
-              onError={(e) => {
-                e.target.src = `https://avatars.dicebear.com/api/identicon/${user.uid}.svg`;
-              }}
-            />
-          </Link>
+        <div className={`flex flex-row-reverse transition-all duration-150 items-center relative ml-2 ${show ? "mr-9" : ""}`}>
+          <div onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} className={` bg-[white] h-12 flex transition-all duration-150 ${show ? "w-[80px]" : "w-0 right-[1rem]"} overflow-hidden items-center justify-end pr-3 rounded-full -right-10 absolute z-0`}>
+            <FiLogOut onClick={() => {
+              signUserOut();
+              setShow(false);
+            }} className="cursor-pointer text-xl" />
+          </div>
+          <div onMouseEnter={() => setShow(true)} onClick={() => setShow(!show)} onMouseLeave={() => setShow(false)} className="p-1 bg-[white] rounded-full z-10 flex justify-center items-center">
+            <Link to={`/users/${user?.uid}`}>
+              <img
+                src={user?.photoURL}
+                className="max-h-8 lg:max-h-10 rounded-full"
+                alt={user?.displayName}
+                onError={(e) => {
+                  e.target.src = `https://avatars.dicebear.com/api/identicon/${user.uid}.svg`;
+                }}
+              />
+            </Link>
+          </div>
         </div>
       )}
     </>
