@@ -6,7 +6,6 @@ import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const user = useContext(UserContext);
-  console.log(user)
   return (
     <header className="max-w-3xl flex justify-between items-center mx-auto border-b border-darkText pb-3 lg:pb-5 dark:border-gray">
       <Link to={"/"}>

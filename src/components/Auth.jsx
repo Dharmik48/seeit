@@ -16,7 +16,6 @@ const Auth = () => {
   const signInWithGoogle = async () => {
     const data = await signInWithPopup(auth, provider);
     const { uid, photoURL, email, displayName } = data.user;
-    console.log(photoURL)
     const userRef = doc(db, "users", uid);
     getDoc(userRef)
       .then((userDoc) => {
@@ -62,7 +61,7 @@ const Auth = () => {
         </button>
       ) : (
         <div className={`flex flex-row-reverse transition-all duration-150 items-center relative ml-2 ${show?"mr-9":""}`}>
-          <div onMouseEnter={()=>setShow(true)} onMouseLeave = {()=>setShow(false)} className={` bg-[white] h-12 flex transition-all duration-150 ${show?"w-[80px]":"w-0 right-[1rem]"} overflow-hidden items-center justify-end pr-3 rounded-full -right-10 absolute z-0`}>
+          <div onMouseEnter={()=>setShow(true)} onMouseLeave = {()=>setShow(false)} className={` bg-[white] h-12 flex transition-all duration-150 ${show?"w-[80px]":"w-0 -right-[1rem]"} overflow-hidden items-center justify-end pr-3 rounded-full left-[.95rem] absolute z-0`}>
             <FiLogOut onClick={()=>{
               signUserOut();
               setShow(false);
